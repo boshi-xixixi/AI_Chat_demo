@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama集成测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { margin: 5px; padding: 8px 15px; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Ollama集成功能测试</h1>
+    
+    <div class="test-section">
+        <h2>1. Ollama服务状态检测</h2>
+        <button onclick="testOllamaStatus()">检测Ollama状态</button>
+        <div id="statusResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. 模型列表获取</h2>
+        <button onclick="testGetModels()">获取模型列表</button>
+        <div id="modelsResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. 最佳模型选择</h2>
+        <button onclick="testBestModel()">选择最佳模型</button>
+        <div id="bestModelResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. 连接管理器状态</h2>
+        <button onclick="testConnectionManager()">检查连接管理器</button>
+        <div id="connectionResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>5. 诊断信息</h2>
+        <button onclick="testDiagnostics()">获取诊断信息</button>
+        <div id="diagnosticsResult"></div>
+    </div>
+
+    <!-- 加载核心脚本 -->
+    <script src="assets/js/core.js"></script>
+    <script src="assets/js/database.js"></script>
+    <script src="assets/js/storage-fallback.js"></script>
+    <script src="assets/js/api-service.js"></script>
+
+    <script>
+        let apiService;
+        let storageService;
+
+        // 初始化服务
+        async function initServices() {
+            try {
+                storageService = new AIChat.StorageService();
+                await storageService.init();
+                
+                apiService = new AIChat.APIService();
+                await apiService.init(storageService);
+                
+                console.log('服务初始化完成');
+            } catch (error) {
+                console.error('服务初始化失败:', error);
+            }
+        }
+
+        // 测试Ollama状态
+        async function testOllamaStatus() {
+            const resultDiv = document.getElementById('statusResult');
+            resultDiv.innerHTML = '<div class="info">检测中...</div>';
+            
+            try {
+                const status = await apiService.checkOllamaStatus();
+                resultDiv.innerHTML = `
+                    <div class="${status.available ? 'success' : 'error'}">
+                        状态: ${status.available ? '可用' : '不可用'}
+                    </div>
+                    <pre>${JSON.stringify(status, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">错误: ${error.message}</div>`;
+            }
+        }
+
+        // 测试获取模型列表
+        async function testGetModels() {
+            const resultDiv = document.getElementById('modelsResult');
+            resultDiv.innerHTML = '<div class="info">获取中...</div>';
+            
+            try {
+                const models = await apiService.getOllamaModels(true);
+                resultDiv.innerHTML = `
+                    <div class="success">找到 ${models.length} 个模型</div>
+                    <pre>${JSON.stringify(models, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">错误: ${error.message}</div>`;
+            }
+        }
+
+        // 测试最佳模型选择
+        async function testBestModel() {
+            const resultDiv = document.getElementById('bestModelResult');
+            resultDiv.innerHTML = '<div class="info">选择中...</div>';
+            
+            try {
+                const bestModel = await apiService.detectBestOllamaModel();
+                if (bestModel) {
+                    resultDiv.innerHTML = `
+                        <div class="success">最佳模型: ${bestModel.name}</div>
+                        <pre>${JSON.stringify(bestModel, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = '<div class="error">未找到可用模型</div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">错误: ${error.message}</div>`;
+            }
+        }
+
+        // 测试连接管理器
+        async function testConnectionManager() {
+            const resultDiv = document.getElementById('connectionResult');
+            
+            try {
+                const connectionStatus = apiService.ollamaManager.getConnectionStatus();
+                const connectionStats = apiService.ollamaManager.getConnectionStats();
+                
+                resultDiv.innerHTML = `
+                    <div class="info">连接状态</div>
+                    <pre>${JSON.stringify(connectionStatus, null, 2)}</pre>
+                    <div class="info">连接统计</div>
+                    <pre>${JSON.stringify(connectionStats, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">错误: ${error.message}</div>`;
+            }
+        }
+
+        // 测试诊断信息
+        async function testDiagnostics() {
+            const resultDiv = document.getElementById('diagnosticsResult');
+            resultDiv.innerHTML = '<div class="info">获取中...</div>';
+            
+            try {
+                const diagnostics = await apiService.getOllamaDiagnostics();
+                resultDiv.innerHTML = `
+                    <div class="success">诊断信息获取成功</div>
+                    <pre>${JSON.stringify(diagnostics, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">错误: ${error.message}</div>`;
+            }
+        }
+
+        // 监听连接状态变化
+        window.addEventListener('ollamaConnectionChange', (event) => {
+            console.log('Ollama连接状态变化:', event.detail);
+        });
+
+        // 页面加载时初始化
+        window.addEventListener('load', initServices);
+    </script>
+</body>
+</html>
