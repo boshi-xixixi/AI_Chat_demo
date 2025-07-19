@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI人格聊天应用</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind + DaisyUI配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+      daisyui: {
+        themes: [
+          {
+            light: {
+              "primary": "#165DFF",
+              "secondary": "#36D399", 
+              "accent": "#8B5CF6",
+              "neutral": "#1E293B",
+              "base-100": "#F8FAFC",
+              "info": "#3ABFF8",
+              "success": "#36D399",
+              "warning": "#FBBD23",
+              "error": "#F87272",
+            },
+          },
+          "dark",
+        ],
+      },
+    }
+  </script>
+  
+  <!-- 自定义样式 -->
+  <style>
+    .scrollbar-hide {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* 自定义聊天气泡动画 */
+    .chat-message {
+      animation: fadeInUp 0.3s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* 加载动画 */
+    .typing-indicator {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="font-inter min-h-screen flex flex-col" data-theme="light">
+  <!-- 顶部导航栏 -->
+  <div class="navbar bg-base-100 shadow-sm border-b border-base-200 sticky top-0 z-30">
+    <div class="navbar-start">
+      <div class="dropdown lg:hidden">
+        <div tabindex="0" role="button" class="btn btn-ghost">
+          <i class="fa fa-bars text-lg"></i>
+        </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a id="mobilePersonaList">人格列表</a></li>
+          <li><a id="mobileSettings">设置</a></li>
+        </ul>
+      </div>
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-comment text-primary text-2xl"></i>
+        <h1 class="text-xl font-bold text-primary">AI人格聊天</h1>
+      </div>
+    </div>
+    
+    <div class="navbar-end">
+      <div class="flex items-center space-x-2">
+        <button id="themeToggle" class="btn btn-ghost btn-circle" title="切换主题">
+          <i class="fa fa-moon text-lg"></i>
+        </button>
+        <button id="settingsBtn" class="btn btn-ghost btn-circle" title="设置">
+          <i class="fa fa-cog text-lg"></i>
+        </button>
+        <button id="newPersonaBtn" class="btn btn-primary">
+          <i class="fa fa-plus mr-2"></i>
+          新建人格
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主要内容区 -->
+  <main class="flex-1 flex flex-col lg:flex-row container mx-auto w-full max-w-7xl px-4 py-6 gap-6">
+    <!-- 左侧人格列表 -->
+    <aside id="personaList" class="w-full lg:w-80 xl:w-96 h-auto lg:h-[calc(100vh-120px)] card bg-base-100 shadow-md overflow-hidden flex flex-col transition-all duration-300">
+      <div class="card-body p-4">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="card-title text-lg">人格列表</h2>
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-circle">
+              <i class="fa fa-ellipsis-v"></i>
+            </div>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a id="importPersonas"><i class="fa fa-upload mr-2"></i>导入人格</a></li>
+              <li><a id="exportPersonas"><i class="fa fa-download mr-2"></i>导出人格</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="form-control mb-4">
+          <div class="input-group">
+            <input type="text" id="searchPersona" placeholder="搜索人格..." class="input input-bordered input-sm flex-1">
+            <button class="btn btn-square btn-sm">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+        
+        <div id="personaItems" class="flex-1 overflow-y-auto scrollbar-hide space-y-2 px-2">
+          <!-- 人格项将通过JavaScript动态添加 -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右侧聊天区域 -->
+    <div id="chatContainer" class="flex-1 flex flex-col h-[calc(100vh-120px)] card bg-base-100 shadow-md overflow-hidden">
+      <!-- 当前人格信息 -->
+      <div id="currentPersonaHeader" class="card-body p-4 border-b border-base-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div id="currentPersonaAvatar" class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                A
+              </div>
+            </div>
+            <div>
+            <h3 id="currentPersonaName" class="font-semibold text-gray-800">默认助手</h3>
+            <p id="currentPersonaLastActive" class="text-xs text-gray-500">上次活跃: 刚刚</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button id="editPersonaBtn" class="text-gray-500 hover:text-primary transition-colors">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button id="deletePersonaBtn" class="text-gray-500 hover:text-red-500 transition-colors">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- 聊天消息区域 -->
+      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto scrollbar-hide space-y-4">
+        <!-- 欢迎消息 -->
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+            A
+          </div>
+          <div class="chat-bubble-ai max-w-[85%] p-4 shadow-sm">
+            <p>你好！我是默认助手，有什么我可以帮助你的吗？</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 聊天输入区域 -->
+      <div class="border-t border-gray-200 p-4">
+        <div class="flex items-center space-x-3">
+          <button id="sendVoiceBtn" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors">
+            <i class="fa fa-microphone"></i>
+          </button>
+          <div class="flex-1 relative">
+            <textarea id="userMessage" placeholder="输入消息..." class="w-full p-3 pr-10 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none transition-all" rows="1"></textarea>
+            <button id="sendMessageBtn" class="absolute right-3 bottom-3 text-primary hover:text-primary/80 transition-colors">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </div>
+          <button id="sendImageBtn" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors">
+            <i class="fa fa-image"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 新建/编辑人格模态框 -->
+  <div id="personaModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="border-b border-gray-200 p-4 flex justify-between items-center">
+        <h3 id="modalTitle" class="font-semibold text-lg text-gray-800">新建人格</h3>
+        <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700 transition-colors">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto p-4">
+        <form id="personaForm">
+          <div class="mb-4">
+            <label for="personaName" class="block text-sm font-medium text-gray-700 mb-1">人格名称 <span class="text-red-500">*</span></label>
+            <input type="text" id="personaName" name="personaName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" placeholder="输入人格名称" required>
+          </div>
+          
+          <div class="mb-4">
+            <label for="personaAvatar" class="block text-sm font-medium text-gray-700 mb-1">人格头像</label>
+            <div class="flex items-center space-x-3">
+              <div id="previewAvatar" class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                A
+              </div>
+              <button type="button" id="uploadAvatarBtn" class="text-primary hover:text-primary/80 text-sm transition-colors flex items-center">
+                <i class="fa fa-upload mr-1"></i>
+                上传头像
+              </button>
+              <input type="file" id="avatarInput" accept="image/*" class="hidden">
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="personaPrompt" class="block text-sm font-medium text-gray-700 mb-1">设定(系统提示词) <span class="text-red-500">*</span></label>
+            <textarea id="personaPrompt" name="personaPrompt" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" placeholder="填写人格的身份背景、性格特征、兴趣爱好、个人经历、口头禅等" required></textarea>
+          </div>
+          
+          <div class="mb-4">
+            <label for="beginDialogs" class="block text-sm font-medium text-gray-700 mb-1">预设对话</label>
+            <div class="bg-gray-50 p-3 rounded-lg">
+              <p class="text-xs text-gray-500 mb-2">可选。在每个对话前会插入这些预设对话。对话需要成对(用户和助手)，输入完一个角色的内容之后按【回车】。需要偶数个对话</p>
+              <div id="beginDialogsContainer" class="space-y-3">
+                <div class="begin-dialog-item flex items-start space-x-2">
+                  <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+                    <option value="user">用户</option>
+                    <option value="assistant">助手</option>
+                  </select>
+                  <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+                  <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+                <div class="begin-dialog-item flex items-start space-x-2">
+                  <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+                    <option value="user">用户</option>
+                    <option value="assistant">助手</option>
+                  </select>
+                  <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+                  <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <button type="button" id="addBeginDialogBtn" class="mt-2 text-primary hover:text-primary/80 text-sm transition-colors flex items-center">
+                <i class="fa fa-plus mr-1"></i>
+                添加对话
+              </button>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label for="moodImitationDialogs" class="block text-sm font-medium text-gray-700 mb-1">对话风格模仿</label>
+            <div class="bg-gray-50 p-3 rounded-lg">
+              <p class="text-xs text-gray-500 mb-2">旨在让模型尽可能模仿学习到所填写的对话的语气风格。格式和 `预设对话` 一致。对话需要成对(用户和助手)，输入完一个角色的内容之后按【回车】。需要偶数个对话</p>
+              <div id="moodImitationDialogsContainer" class="space-y-3">
+                <div class="mood-dialog-item flex items-start space-x-2">
+                  <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+                    <option value="user">用户</option>
+                    <option value="assistant">助手</option>
+                  </select>
+                  <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+                  <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+                <div class="mood-dialog-item flex items-start space-x-2">
+                  <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+                    <option value="user">用户</option>
+                    <option value="assistant">助手</option>
+                  </select>
+                  <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+                  <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <button type="button" id="addMoodDialogBtn" class="mt-2 text-primary hover:text-primary/80 text-sm transition-colors flex items-center">
+                <i class="fa fa-plus mr-1"></i>
+                添加对话
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <div class="border-t border-gray-200 p-4 flex justify-end space-x-3">
+        <button id="cancelModalBtn" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+          取消
+        </button>
+        <button id="savePersonaBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+          保存
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 加载中模态框 -->
+  <div id="loadingModal" class="fixed inset-0 bg-black/30 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+      <p id="loadingText" class="text-gray-700">AI正在思考...</p>
+    </div>
+  </div>
+
+  <script>
+    // 示例人格数据
+    let personas = [
+      {
+        id: 1,
+        name: "默认助手",
+        avatar: null,
+        prompt: "你是一个智能助手，能够回答各种问题并帮助用户解决问题。",
+        beginDialogs: [
+          { role: "user", content: "你好" },
+          { role: "assistant", content: "你好！我是默认助手，有什么我可以帮助你的吗？" }
+        ],
+        moodImitationDialogs: [],
+        messages: [
+          { role: "assistant", content: "你好！我是默认助手，有什么我可以帮助你的吗？" }
+        ],
+        lastActive: new Date().toISOString()
+      }
+    ];
+    
+    // 当前选中的人格ID
+    let currentPersonaId = 1;
+    
+    // DOM元素
+    const personaList = document.getElementById('personaList');
+    const personaItems = document.getElementById('personaItems');
+    const chatMessages = document.getElementById('chatMessages');
+    const userMessage = document.getElementById('userMessage');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const newPersonaBtn = document.getElementById('newPersonaBtn');
+    const personaModal = document.getElementById('personaModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+    const savePersonaBtn = document.getElementById('savePersonaBtn');
+    const modalTitle = document.getElementById('modalTitle');
+    const personaForm = document.getElementById('personaForm');
+    const personaNameInput = document.getElementById('personaName');
+    const personaPromptInput = document.getElementById('personaPrompt');
+    const previewAvatar = document.getElementById('previewAvatar');
+    const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
+    const avatarInput = document.getElementById('avatarInput');
+    const beginDialogsContainer = document.getElementById('beginDialogsContainer');
+    const moodImitationDialogsContainer = document.getElementById('moodImitationDialogsContainer');
+    const addBeginDialogBtn = document.getElementById('addBeginDialogBtn');
+    const addMoodDialogBtn = document.getElementById('addMoodDialogBtn');
+    const editPersonaBtn = document.getElementById('editPersonaBtn');
+    const deletePersonaBtn = document.getElementById('deletePersonaBtn');
+    const currentPersonaName = document.getElementById('currentPersonaName');
+    const currentPersonaAvatar = document.getElementById('currentPersonaAvatar');
+    const currentPersonaLastActive = document.getElementById('currentPersonaLastActive');
+    const loadingModal = document.getElementById('loadingModal');
+    const loadingText = document.getElementById('loadingText');
+    const searchPersona = document.getElementById('searchPersona');
+    const sendVoiceBtn = document.getElementById('sendVoiceBtn');
+    const sendImageBtn = document.getElementById('sendImageBtn');
+
+    // 初始化应用
+    function initApp() {
+      renderPersonaList();
+      renderChatMessages();
+      updateCurrentPersonaInfo();
+      setupEventListeners();
+    }
+
+    // 设置事件监听器
+    function setupEventListeners() {
+      // 发送消息
+      sendMessageBtn.addEventListener('click', sendMessage);
+      userMessage.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+      
+      // 新建人格
+      newPersonaBtn.addEventListener('click', openNewPersonaModal);
+      
+      // 关闭模态框
+      closeModalBtn.addEventListener('click', closePersonaModal);
+      cancelModalBtn.addEventListener('click', closePersonaModal);
+      
+      // 保存人格
+      savePersonaBtn.addEventListener('click', savePersona);
+      
+      // 上传头像
+      uploadAvatarBtn.addEventListener('click', () => avatarInput.click());
+      avatarInput.addEventListener('change', handleAvatarUpload);
+      
+      // 添加对话
+      addBeginDialogBtn.addEventListener('click', () => addDialogItem('begin'));
+      addMoodDialogBtn.addEventListener('click', () => addDialogItem('mood'));
+      
+      // 编辑当前人格
+      editPersonaBtn.addEventListener('click', openEditPersonaModal);
+      
+      // 删除当前人格
+      deletePersonaBtn.addEventListener('click', deleteCurrentPersona);
+      
+      // 搜索人格
+      searchPersona.addEventListener('input', filterPersonas);
+      
+      // 语音和图片按钮
+      sendVoiceBtn.addEventListener('click', () => alert('语音功能尚未实现'));
+      sendImageBtn.addEventListener('click', () => alert('图片发送功能尚未实现'));
+    }
+
+    // 渲染人格列表
+    function renderPersonaList() {
+      personaItems.innerHTML = '';
+      
+      personas.forEach(persona => {
+        const isActive = persona.id === currentPersonaId;
+        const personaItem = document.createElement('div');
+        personaItem.className = `persona-item p-3 rounded-lg flex items-center justify-between cursor-pointer ${isActive ? 'bg-primary/10 border-l-4 border-primary' : 'hover:bg-gray-50'}`;
+        personaItem.dataset.id = persona.id;
+        
+        const avatar = persona.avatar 
+          ? `<img src="${persona.avatar}" alt="${persona.name}头像" class="w-8 h-8 rounded-full object-cover">`
+          : `<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">${persona.name.charAt(0)}</div>`;
+        
+        personaItem.innerHTML = `
+          <div class="flex items-center space-x-3">
+            ${avatar}
+            <div class="flex-1 min-w-0">
+              <h4 class="font-medium text-gray-800 truncate">${persona.name}</h4>
+              <p class="text-xs text-gray-500 truncate">${persona.prompt.substring(0, 30)}${persona.prompt.length > 30 ? '...' : ''}</p>
+            </div>
+          </div>
+          <div class="text-xs text-gray-500">${formatDate(persona.lastActive)}</div>
+        `;
+        
+        personaItem.addEventListener('click', () => selectPersona(persona.id));
+        personaItems.appendChild(personaItem);
+      });
+    }
+
+    // 渲染聊天消息
+    function renderChatMessages() {
+      chatMessages.innerHTML = '';
+      const currentPersona = getCurrentPersona();
+      
+      if (!currentPersona) return;
+      
+      currentPersona.messages.forEach(message => {
+        const isUser = message.role === 'user';
+        const avatar = isUser 
+          ? `<div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-sm">你</div>`
+          : currentPersona.avatar 
+            ? `<img src="${currentPersona.avatar}" alt="${currentPersona.name}头像" class="w-8 h-8 rounded-full object-cover">`
+            : `<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">${currentPersona.name.charAt(0)}</div>`;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex items-start space-x-3 ${isUser ? 'justify-end' : 'justify-start'}`;
+        
+        messageDiv.innerHTML = `
+          ${isUser ? '' : avatar}
+          <div class="chat-bubble-${isUser ? 'user' : 'ai'} max-w-[85%] p-4 shadow-sm">
+            <p>${message.content}</p>
+          </div>
+          ${isUser ? avatar : ''}
+        `;
+        
+        chatMessages.appendChild(messageDiv);
+      });
+      
+      // 滚动到底部
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // 更新当前人格信息
+    function updateCurrentPersonaInfo() {
+      const currentPersona = getCurrentPersona();
+      
+      if (!currentPersona) return;
+      
+      currentPersonaName.textContent = currentPersona.name;
+      currentPersonaLastActive.textContent = `上次活跃: ${formatDate(currentPersona.lastActive)}`;
+      
+      if (currentPersona.avatar) {
+        currentPersonaAvatar.innerHTML = `<img src="${currentPersona.avatar}" alt="${currentPersona.name}头像" class="w-full h-full rounded-full object-cover">`;
+      } else {
+        currentPersonaAvatar.textContent = currentPersona.name.charAt(0);
+      }
+    }
+
+    // 获取当前人格
+    function getCurrentPersona() {
+      return personas.find(p => p.id === currentPersonaId);
+    }
+
+    // 选择人格
+    function selectPersona(id) {
+      if (currentPersonaId === id) return;
+      
+      currentPersonaId = id;
+      const currentPersona = getCurrentPersona();
+      
+      if (currentPersona) {
+        currentPersona.lastActive = new Date().toISOString();
+        renderPersonaList();
+        renderChatMessages();
+        updateCurrentPersonaInfo();
+      }
+    }
+
+    // 发送消息
+    function sendMessage() {
+      const message = userMessage.value.trim();
+      if (!message) return;
+      
+      const currentPersona = getCurrentPersona();
+      if (!currentPersona) return;
+      
+      // 添加用户消息
+      currentPersona.messages.push({ role: 'user', content: message });
+      userMessage.value = '';
+      renderChatMessages();
+      
+      // 显示加载状态
+      showLoading();
+      
+      // 模拟AI回复
+      setTimeout(() => {
+        // 构建发送给API的消息
+        let messages = [
+          { role: 'system', content: currentPersona.prompt }
+        ];
+        
+        // 添加预设对话
+        if (currentPersona.beginDialogs && currentPersona.beginDialogs.length > 0) {
+          messages = [...messages, ...currentPersona.beginDialogs];
+        }
+        
+        // 添加风格模仿对话
+        if (currentPersona.moodImitationDialogs && currentPersona.moodImitationDialogs.length > 0) {
+          messages = [...messages, ...currentPersona.moodImitationDialogs];
+        }
+        
+        // 添加历史消息
+        messages = [...messages, ...currentPersona.messages];
+        
+        // 模拟API调用
+        // 实际应用中，这里应该调用火山引擎的API
+        // 以下是模拟的AI回复逻辑
+        let aiResponse = "我理解你的问题了。";
+        
+        // 根据人格设置调整回复风格
+        if (currentPersona.prompt.includes("幽默")) {
+          aiResponse = "哈哈，这个问题有意思！让我想想...";
+        } else if (currentPersona.prompt.includes("专业")) {
+          aiResponse = "根据专业知识，这个问题可以这样解决...";
+        }
+        
+        // 添加AI回复
+        currentPersona.messages.push({ role: 'assistant', content: aiResponse });
+        currentPersona.lastActive = new Date().toISOString();
+        
+        // 更新UI
+        hideLoading();
+        renderPersonaList();
+        renderChatMessages();
+        updateCurrentPersonaInfo();
+      }, 1500);
+    }
+
+    // 打开新建人格模态框
+    function openNewPersonaModal() {
+      modalTitle.textContent = "新建人格";
+      personaForm.reset();
+      previewAvatar.textContent = "A";
+      previewAvatar.style.backgroundImage = "none";
+      
+      // 清空对话容器，只保留两个空项
+      beginDialogsContainer.innerHTML = `
+        <div class="begin-dialog-item flex items-start space-x-2">
+          <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+            <option value="user">用户</option>
+            <option value="assistant">助手</option>
+          </select>
+          <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+          <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="begin-dialog-item flex items-start space-x-2">
+          <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+            <option value="user">用户</option>
+            <option value="assistant">助手</option>
+          </select>
+          <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+          <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      `;
+      
+      moodImitationDialogsContainer.innerHTML = `
+        <div class="mood-dialog-item flex items-start space-x-2">
+          <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+            <option value="user">用户</option>
+            <option value="assistant">助手</option>
+          </select>
+          <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+          <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="mood-dialog-item flex items-start space-x-2">
+          <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+            <option value="user">用户</option>
+            <option value="assistant">助手</option>
+          </select>
+          <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+          <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      `;
+      
+      // 添加对话删除按钮事件
+      document.querySelectorAll('.delete-dialog-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const container = this.closest('[id$="Container"]');
+          const items = container.querySelectorAll('[class$="-dialog-item"]');
+          
+          if (items.length > 2) {
+            this.closest('[class$="-dialog-item"]').remove();
+          } else {
+            alert('至少需要保留一对对话');
+          }
+        });
+      });
+      
+      personaModal.classList.remove('hidden');
+    }
+
+    // 打开编辑人格模态框
+    function openEditPersonaModal() {
+      const currentPersona = getCurrentPersona();
+      if (!currentPersona) return;
+      
+      modalTitle.textContent = "编辑人格";
+      personaNameInput.value = currentPersona.name;
+      personaPromptInput.value = currentPersona.prompt;
+      
+      if (currentPersona.avatar) {
+        previewAvatar.innerHTML = `<img src="${currentPersona.avatar}" alt="${currentPersona.name}头像" class="w-full h-full rounded-full object-cover">`;
+      } else {
+        previewAvatar.textContent = currentPersona.name.charAt(0);
+        previewAvatar.style.backgroundImage = "none";
+      }
+      
+      // 设置预设对话
+      beginDialogsContainer.innerHTML = '';
+      if (currentPersona.beginDialogs && currentPersona.beginDialogs.length > 0) {
+        currentPersona.beginDialogs.forEach(dialog => {
+          const dialogItem = document.createElement('div');
+          dialogItem.className = 'begin-dialog-item flex items-start space-x-2';
+          dialogItem.innerHTML = `
+            <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+              <option value="user" ${dialog.role === 'user' ? 'selected' : ''}>用户</option>
+              <option value="assistant" ${dialog.role === 'assistant' ? 'selected' : ''}>助手</option>
+            </select>
+            <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容" value="${dialog.content}">
+            <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+              <i class="fa fa-times"></i>
+            </button>
+          `;
+          beginDialogsContainer.appendChild(dialogItem);
+        });
+      } else {
+        // 添加默认的两个空对话项
+        for (let i = 0; i < 2; i++) {
+          const dialogItem = document.createElement('div');
+          dialogItem.className = 'begin-dialog-item flex items-start space-x-2';
+          dialogItem.innerHTML = `
+            <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+              <option value="user">用户</option>
+              <option value="assistant">助手</option>
+            </select>
+            <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+            <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+              <i class="fa fa-times"></i>
+            </button>
+          `;
+          beginDialogsContainer.appendChild(dialogItem);
+        }
+      }
+      
+      // 设置风格模仿对话
+      moodImitationDialogsContainer.innerHTML = '';
+      if (currentPersona.moodImitationDialogs && currentPersona.moodImitationDialogs.length > 0) {
+        currentPersona.moodImitationDialogs.forEach(dialog => {
+          const dialogItem = document.createElement('div');
+          dialogItem.className = 'mood-dialog-item flex items-start space-x-2';
+          dialogItem.innerHTML = `
+            <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+              <option value="user" ${dialog.role === 'user' ? 'selected' : ''}>用户</option>
+              <option value="assistant" ${dialog.role === 'assistant' ? 'selected' : ''}>助手</option>
+            </select>
+            <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容" value="${dialog.content}">
+            <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+              <i class="fa fa-times"></i>
+            </button>
+          `;
+          moodImitationDialogsContainer.appendChild(dialogItem);
+        });
+      } else {
+        // 添加默认的两个空对话项
+        for (let i = 0; i < 2; i++) {
+          const dialogItem = document.createElement('div');
+          dialogItem.className = 'mood-dialog-item flex items-start space-x-2';
+          dialogItem.innerHTML = `
+            <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+              <option value="user">用户</option>
+              <option value="assistant">助手</option>
+            </select>
+            <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+            <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+              <i class="fa fa-times"></i>
+            </button>
+          `;
+          moodImitationDialogsContainer.appendChild(dialogItem);
+        }
+      }
+      
+      // 添加对话删除按钮事件
+      document.querySelectorAll('.delete-dialog-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const container = this.closest('[id$="Container"]');
+          const items = container.querySelectorAll('[class$="-dialog-item"]');
+          
+          if (items.length > 2) {
+            this.closest('[class$="-dialog-item"]').remove();
+          } else {
+            alert('至少需要保留一对对话');
+          }
+        });
+      });
+      
+      personaModal.classList.remove('hidden');
+    }
+
+    // 关闭人格模态框
+    function closePersonaModal() {
+      personaModal.classList.add('hidden');
+    }
+
+    // 保存人格
+    function savePersona() {
+      const name = personaNameInput.value.trim();
+      const prompt = personaPromptInput.value.trim();
+      
+      if (!name || !prompt) {
+        alert('请填写人格名称和设定');
+        return;
+      }
+      
+      // 获取预设对话
+      const beginDialogItems = beginDialogsContainer.querySelectorAll('.begin-dialog-item');
+      const beginDialogs = Array.from(beginDialogItems).map(item => {
+        const role = item.querySelector('select').value;
+        const content = item.querySelector('input').value.trim();
+        return { role, content };
+      }).filter(dialog => dialog.content);
+      
+      // 检查预设对话是否为偶数
+      if (beginDialogs.length % 2 !== 0) {
+        alert('预设对话需要成对出现（用户和助手交替）');
+        return;
+      }
+      
+      // 获取风格模仿对话
+      const moodDialogItems = moodImitationDialogsContainer.querySelectorAll('.mood-dialog-item');
+      const moodImitationDialogs = Array.from(moodDialogItems).map(item => {
+        const role = item.querySelector('select').value;
+        const content = item.querySelector('input').value.trim();
+        return { role, content };
+      }).filter(dialog => dialog.content);
+      
+      // 检查风格模仿对话是否为偶数
+      if (moodImitationDialogs.length % 2 !== 0) {
+        alert('风格模仿对话需要成对出现（用户和助手交替）');
+        return;
+      }
+      
+      // 获取头像
+      let avatar = null;
+      if (previewAvatar.querySelector('img')) {
+        avatar = previewAvatar.querySelector('img').src;
+      }
+      
+      // 新建或更新人格
+      if (modalTitle.textContent === "新建人格") {
+        // 新建人格
+        const newPersona = {
+          id: Date.now(), // 使用时间戳作为唯一ID
+          name,
+          avatar,
+          prompt,
+          beginDialogs,
+          moodImitationDialogs,
+          messages: [],
+          lastActive: new Date().toISOString()
+        };
+        
+        personas.push(newPersona);
+        currentPersonaId = newPersona.id;
+      } else {
+        // 更新现有人格
+        const currentPersona = getCurrentPersona();
+        if (currentPersona) {
+          currentPersona.name = name;
+          currentPersona.avatar = avatar;
+          currentPersona.prompt = prompt;
+          currentPersona.beginDialogs = beginDialogs;
+          currentPersona.moodImitationDialogs = moodImitationDialogs;
+        }
+      }
+      
+      // 更新UI
+      renderPersonaList();
+      renderChatMessages();
+      updateCurrentPersonaInfo();
+      closePersonaModal();
+    }
+
+    // 处理头像上传
+    function handleAvatarUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        previewAvatar.innerHTML = `<img src="${event.target.result}" alt="人格头像" class="w-full h-full rounded-full object-cover">`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 添加对话项
+    function addDialogItem(type) {
+      const container = type === 'begin' ? beginDialogsContainer : moodImitationDialogsContainer;
+      
+      const dialogItem = document.createElement('div');
+      dialogItem.className = `${type}-dialog-item flex items-start space-x-2`;
+      dialogItem.innerHTML = `
+        <select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+          <option value="user">用户</option>
+          <option value="assistant">助手</option>
+        </select>
+        <input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">
+        <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
+          <i class="fa fa-times"></i>
+        </button>
+      `;
+      
+      // 添加删除按钮事件
+      dialogItem.querySelector('.delete-dialog-btn').addEventListener('click', function() {
+        dialogItem.remove();
+      });
+      
+      container.appendChild(dialogItem);
+    }
+
+    // 删除当前人格
+    function deleteCurrentPersona() {
+      if (personas.length <= 1) {
+        alert('至少保留一个人格');
+        return;
+      }
+      
+      if (confirm('确定要删除这个人格吗？')) {
+        const index = personas.findIndex(p => p.id === currentPersonaId);
+        if (index !== -1) {
+          personas.splice(index, 1);
+          
+          // 选择第一个人格
+          currentPersonaId = personas[0].id;
+          
+          // 更新UI
+          renderPersonaList();
+          renderChatMessages();
+          updateCurrentPersonaInfo();
+        }
+      }
+    }
+
+    // 显示加载状态
+    function showLoading() {
+      loadingModal.classList.remove('hidden');
+    }
+
+    // 隐藏加载状态
+    function hideLoading() {
+      loadingModal.classList.add('hidden');
+    }
+
+    // 过滤人格列表
+    function filterPersonas() {
+      const searchTerm = searchPersona.value.toLowerCase().trim();
+      
+      if (!searchTerm) {
+        renderPersonaList();
+        return;
+      }
+      
+      const filteredPersonas = personas.filter(persona => 
+        persona.name.toLowerCase().includes(searchTerm) || 
+        persona.prompt.toLowerCase().includes(searchTerm)
+      );
+      
+      personaItems.innerHTML = '';
+      
+      filteredPersonas.forEach(persona => {
+        const isActive = persona.id === currentPersonaId;
+        const personaItem = document.createElement('div');
+        personaItem.className = `persona-item p-3 rounded-lg flex items-center justify-between cursor-pointer ${isActive ? 'bg-primary/10 border-l-4 border-primary' : 'hover:bg-gray-50'}`;
+        personaItem.dataset.id = persona.id;
+        
+        const avatar = persona.avatar 
+          ? `<img src="${persona.avatar}" alt="${persona.name}头像" class="w-8 h-8 rounded-full object-cover">`
+          : `<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">${persona.name.charAt(0)}</div>`;
+        
+        personaItem.innerHTML = `
+          <div class="flex items-center space-x-3">
+            ${avatar}
+            <div class="flex-1 min-w-0">
+              <h4 class="font-medium text-gray-800 truncate">${persona.name}</h4>
+              <p class="text-xs text-gray-500 truncate">${persona.prompt.substring(0, 30)}${persona.prompt.length > 30 ? '...' : ''}</p>
+            </div>
+          </div>
+          <div class="text-xs text-gray-500">${formatDate(persona.lastActive)}</div>
+        `;
+        
+        personaItem.addEventListener('click', () => selectPersona(persona.id));
+        personaItems.appendChild(personaItem);
+      });
+    }
+
+    // 格式化日期
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      
+      // 如果是今天
+      if (date.toDateString() === now.toDateString()) {
+        return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      }
+      
+      // 如果是昨天
+      const yesterday = new Date(now);
+      yesterday.setDate(yesterday.getDate() - 1);
+      if (date.toDateString() === yesterday.toDateString()) {
+        return '昨天';
+      }
+      
+      // 如果是今年
+      if (date.getFullYear() === now.getFullYear()) {
+        return date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' });
+      }
+      
+      // 否则显示完整日期
+      return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    }
+
+    // 调整输入框高度
+    userMessage.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+      if (this.scrollHeight > 120) {
+        this.style.height = '120px';
+        this.style.overflowY = 'auto';
+      } else {
+        this.style.overflowY = 'hidden';
+      }
+    });
+
+    // 初始化应用
+    initApp();
+  </script>
+</body>
+</html>    
