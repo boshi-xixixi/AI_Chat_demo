@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama引导服务测试</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body class="p-8">
+    <div class="container mx-auto max-w-4xl">
+        <h1 class="text-3xl font-bold mb-6">Ollama引导服务测试</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button class="btn btn-primary" onclick="testWelcomeGuide()">
+                <i class="fa fa-rocket mr-2"></i>
+                测试欢迎引导
+            </button>
+            
+            <button class="btn btn-secondary" onclick="testOllamaSetup()">
+                <i class="fa fa-desktop mr-2"></i>
+                测试Ollama设置引导
+            </button>
+            
+            <button class="btn btn-accent" onclick="testModelDownload()">
+                <i class="fa fa-download mr-2"></i>
+                测试模型下载引导
+            </button>
+            
+            <button class="btn btn-info" onclick="testDataStorage()">
+                <i class="fa fa-database mr-2"></i>
+                测试数据存储说明
+            </button>
+            
+            <button class="btn btn-warning" onclick="testOllamaStatus()">
+                <i class="fa fa-check-circle mr-2"></i>
+                测试Ollama状态检测
+            </button>
+            
+            <button class="btn btn-success" onclick="testNotification()">
+                <i class="fa fa-bell mr-2"></i>
+                测试通知系统
+            </button>
+        </div>
+        
+        <div class="mt-8">
+            <h2 class="text-xl font-bold mb-4">测试结果</h2>
+            <div id="testResults" class="space-y-2">
+                <!-- 测试结果将显示在这里 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载必要的脚本 -->
+    <script src="assets/js/core.js"></script>
+    <script src="assets/js/guide-service.js"></script>
+    
+    <script>
+        // 模拟API服务
+        const mockApiService = {
+            currentProvider: 'ollama',
+            async checkOllamaStatus() {
+                return {
+                    available: Math.random() > 0.5,
+                    models: [
+                        { name: 'llama3.1:8b', size: '4.7GB', family: 'Llama' },
+                        { name: 'qwen2:7b', size: '4.4GB', family: 'Qwen' }
+                    ],
+                    endpoint: 'http://localhost:11434',
+                    version: '0.1.0'
+                };
+            }
+        };
+        
+        // 模拟存储服务
+        const mockStorage = {
+            async loadSetting(key, defaultValue) {
+                return defaultValue;
+            },
+            async saveSetting(key, value) {
+                console.log(`保存设置: ${key} = ${value}`);
+            },
+            async backup() {
+                return { personas: [], messages: [], settings: [] };
+            },
+            async getStats() {
+                return { personas: 5, messages: 100, settings: 10 };
+            },
+            async checkStorageSpace() {
+                return { used: 1024 * 1024 * 10, available: 1024 * 1024 * 100, percentage: 10 };
+            }
+        };
+        
+        // 初始化引导服务
+        let guideService;
+        
+        async function initGuideService() {
+            guideService = new AIChat.GuideService();
+            await guideService.init(mockApiService, mockStorage);
+            window.guideService = guideService;
+            
+            addTestResult('✅ 引导服务初始化成功', 'success');
+        }
+        
+        function addTestResult(message, type = 'info') {
+            const results = document.getElementById('testResults');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `<span>${message}</span>`;
+            results.appendChild(alert);
+        }
+        
+        async function testWelcomeGuide() {
+            try {
+                await guideService.showWelcomeGuide();
+                addTestResult('✅ 欢迎引导模态框已显示', 'success');
+            } catch (error) {
+                addTestResult('❌ 欢迎引导测试失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function testOllamaSetup() {
+            try {
+                await guideService.showOllamaSetupGuide();
+                addTestResult('✅ Ollama设置引导模态框已显示', 'success');
+            } catch (error) {
+                addTestResult('❌ Ollama设置引导测试失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function testModelDownload() {
+            try {
+                guideService.showModelDownloadGuide();
+                addTestResult('✅ 模型下载引导模态框已显示', 'success');
+            } catch (error) {
+                addTestResult('❌ 模型下载引导测试失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function testDataStorage() {
+            try {
+                guideService.showDataStorageInfo();
+                addTestResult('✅ 数据存储说明模态框已显示', 'success');
+            } catch (error) {
+                addTestResult('❌ 数据存储说明测试失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function testOllamaStatus() {
+            try {
+                await guideService.checkOllamaStatusAndGuide();
+                addTestResult('✅ Ollama状态检测完成', 'success');
+            } catch (error) {
+                addTestResult('❌ Ollama状态检测失败: ' + error.message, 'error');
+            }
+        }
+        
+        function testNotification() {
+            try {
+                guideService.showNotification('success', '这是一个测试通知！');
+                addTestResult('✅ 通知系统测试成功', 'success');
+            } catch (error) {
+                addTestResult('❌ 通知系统测试失败: ' + error.message, 'error');
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initGuideService);
+    </script>
+</body>
+</html>

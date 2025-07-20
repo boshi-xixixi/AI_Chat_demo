@@ -1,31 +1,100 @@
-# 不需要上传的文件夹
-.kiro/
-
-# 依赖文件
+# Dependencies
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# 构建输出
-dist/
-build/
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# 环境变量
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript v1 declaration files
+typings/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
 .env
+.env.test
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.production
 
-# IDE文件
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# 操作系统文件
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -34,24 +103,70 @@ build/
 ehthumbs.db
 Thumbs.db
 
-# 日志文件
+# Logs
+logs
 *.log
 
-# 临时文件
-*.tmp
-*.temp
+# Temporary files
+tmp/
+temp/
+.tmp/
 
-# 用户配置文件（包含API密钥等敏感信息）
-config/user-config.json
-settings/api-keys.json
+# Build outputs
+dist/
+build/
 
-# 测试覆盖率
+# Local configuration files
+config.local.js
+config.local.json
+
+# Test files
+test-results/
 coverage/
 
-# Electron构建文件
-electron-builder/
-release/
-
-# 备份文件
+# Backup files
 *.bak
 *.backup
+*.old
+
+# Custom domain file (should be configured per deployment)
+CNAME
+
+# Local development files
+.env.development
+.env.development.local
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Temporary folders
+tmp/
+temp/
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Optional: Ignore demo assets until they're ready
+# docs/demo-assets/*.png
+# docs/demo-assets/*.gif
+# docs/demo-assets/*.jpg

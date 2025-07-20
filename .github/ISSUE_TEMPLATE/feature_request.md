@@ -1,42 +1,23 @@
 ---
-name: 功能请求
-about: 为这个项目建议一个想法
+name: Feature request
+about: Suggest an idea for this project
 title: '[FEATURE] '
-labels: 'enhancement'
+labels: enhancement
 assignees: ''
 
 ---
 
-**你的功能请求是否与问题相关？请描述。**
-清楚简洁地描述问题是什么。例如：我总是感到沮丧当[...]
+**Is your feature request related to a problem? Please describe.**
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-**描述你想要的解决方案**
-清楚简洁地描述你想要发生什么。
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
 
-**描述你考虑过的替代方案**
-清楚简洁地描述你考虑过的任何替代解决方案或功能。
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features you've considered.
 
-**功能类型**
-- [ ] 用户界面改进
-- [ ] 新的AI功能
-- [ ] 性能优化
-- [ ] 数据管理
-- [ ] 移动端支持
-- [ ] 桌面应用功能
-- [ ] 其他: ___________
+**Additional context**
+Add any other context or screenshots about the feature request here.
 
-**预期用户**
-这个功能主要面向哪类用户？
-- [ ] 普通用户
-- [ ] 技术用户
-- [ ] 开发者
-- [ ] 所有用户
-
-**实现复杂度估计**
-- [ ] 简单 (几小时)
-- [ ] 中等 (几天)
-- [ ] 复杂 (几周)
-- [ ] 不确定
-
-**额外信息**
-添加任何其他关于功能请求的信息、截图或草图。
+**Implementation suggestions**
+If you have ideas about how this could be implemented, please share them here.

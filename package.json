@@ -1,0 +1,35 @@
+{
+  "name": "enhanced-ai-chat",
+  "version": "1.0.0",
+  "description": "Enhanced AI Chat Application with Multiple Personas",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000 || python3 -m http.server 8000",
+    "test": "node assets/js/test-suite.js",
+    "lint": "echo 'Linting JavaScript files...' && find assets/js -name '*.js' -exec node -c {} \\;",
+    "build": "echo 'No build step required for static site'",
+    "dev": "npm run start"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "persona",
+    "ollama",
+    "volcano-engine",
+    "javascript",
+    "html5",
+    "daisyui"
+  ],
+  "author": "Enhanced AI Chat Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/enhanced-ai-chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/enhanced-ai-chat/issues"
+  },
+  "homepage": "https://your-username.github.io/enhanced-ai-chat/",
+  "devDependencies": {},
+  "dependencies": {}
+}

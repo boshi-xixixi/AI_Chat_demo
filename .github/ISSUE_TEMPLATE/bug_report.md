@@ -1,43 +1,36 @@
 ---
-name: Bug报告
-about: 创建一个bug报告来帮助我们改进
+name: Bug report
+about: Create a report to help us improve
 title: '[BUG] '
-labels: 'bug'
+labels: bug
 assignees: ''
 
 ---
 
-**描述bug**
-清楚简洁地描述这个bug是什么。
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-**复现步骤**
-复现这个行为的步骤：
-1. 进入 '...'
-2. 点击 '....'
-3. 滚动到 '....'
-4. 看到错误
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-**期望行为**
-清楚简洁地描述你期望发生什么。
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
-**截图**
-如果适用，添加截图来帮助解释你的问题。
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
 
-**环境信息：**
- - 操作系统: [例如 Windows 10, macOS 12.0]
- - 浏览器: [例如 Chrome 96, Firefox 95]
- - 版本: [例如 v1.0.0]
+**Environment (please complete the following information):**
+ - OS: [e.g. Windows, macOS, Linux]
+ - Browser [e.g. chrome, safari, firefox]
+ - Version [e.g. 22]
+ - AI Service [e.g. Volcano Engine, Ollama]
 
-**使用的AI服务：**
- - [ ] 火山引擎API
- - [ ] 本地Ollama
- - [ ] 其他: ___________
+**Additional context**
+Add any other context about the problem here.
 
-**额外信息**
-添加任何其他关于问题的信息。
-
-**浏览器控制台错误**
-如果有的话，请粘贴浏览器控制台中的错误信息：
-```
-在这里粘贴错误信息
-```
+**Console Errors**
+If applicable, paste any console errors you see in the browser developer tools.

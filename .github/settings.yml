@@ -1,0 +1,117 @@
+# GitHub repository settings
+# This file can be used with the Probot Settings app to automatically configure repository settings
+
+repository:
+  name: enhanced-ai-chat
+  description: "Enhanced AI Chat Application with Multiple Personas - 增强型多人格AI聊天应用"
+  homepage: https://your-username.github.io/enhanced-ai-chat
+  topics:
+    - ai
+    - chat
+    - persona
+    - ollama
+    - volcano-engine
+    - javascript
+    - html5
+    - daisyui
+    - tailwindcss
+    - pwa
+  private: false
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: true
+  delete_branch_on_merge: true
+
+# Labels for issues and pull requests
+labels:
+  - name: bug
+    color: d73a4a
+    description: Something isn't working
+  - name: enhancement
+    color: a2eeef
+    description: New feature or request
+  - name: documentation
+    color: 0075ca
+    description: Improvements or additions to documentation
+  - name: good first issue
+    color: 7057ff
+    description: Good for newcomers
+  - name: help wanted
+    color: 008672
+    description: Extra attention is needed
+  - name: question
+    color: d876e3
+    description: Further information is requested
+  - name: wontfix
+    color: ffffff
+    description: This will not be worked on
+  - name: duplicate
+    color: cfd3d7
+    description: This issue or pull request already exists
+  - name: priority:high
+    color: b60205
+    description: High priority issue
+  - name: priority:medium
+    color: fbca04
+    description: Medium priority issue
+  - name: priority:low
+    color: 0e8a16
+    description: Low priority issue
+  - name: type:feature
+    color: 84b6eb
+    description: New feature implementation
+  - name: type:bugfix
+    color: ee0701
+    description: Bug fix
+  - name: type:refactor
+    color: fbca04
+    description: Code refactoring
+  - name: type:performance
+    color: c2e0c6
+    description: Performance improvement
+  - name: area:ui
+    color: f9d0c4
+    description: User interface related
+  - name: area:api
+    color: c5def5
+    description: API related
+  - name: area:docs
+    color: fef2c0
+    description: Documentation related
+
+# Milestones
+milestones:
+  - title: v1.0.0 - Initial Release
+    description: First stable release with core features
+    state: open
+  - title: v1.1.0 - Enhanced Features
+    description: Additional features and improvements
+    state: open
+  - title: v2.0.0 - Major Update
+    description: Major version with breaking changes
+    state: open
+
+# Collaborators (if needed)
+# collaborators:
+#   - username: collaborator-username
+#     permission: push
+
+# Branch protection rules
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - test
+      enforce_admins: false
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: false
+      restrictions: null

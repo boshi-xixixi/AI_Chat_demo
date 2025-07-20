@@ -51,6 +51,278 @@
       display: none;
     }
 
+    /* 响应式设计样式 */
+    .mobile-layout .navbar {
+      padding: 0.5rem 1rem;
+    }
+
+    .mobile-layout .container {
+      padding: 0.5rem;
+    }
+
+    .mobile-layout #personaList {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-layout #chatContainer {
+      margin-top: 0;
+    }
+
+    .tablet-layout #personaList {
+      width: 20rem;
+    }
+
+    .desktop-layout #personaList {
+      width: 24rem;
+    }
+
+    /* 触摸设备优化 */
+    .touch-device button,
+    .touch-device .btn {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    .touch-device .input,
+    .touch-device .textarea {
+      font-size: 16px; /* 防止iOS缩放 */
+    }
+
+    /* 横屏模式优化 */
+    .landscape.mobile-layout .navbar {
+      padding: 0.25rem 1rem;
+    }
+
+    .landscape.mobile-layout #chatContainer {
+      height: calc(100vh - 6rem) !important;
+    }
+
+    /* 侧边栏遮罩层 */
+    #sidebarOverlay {
+      backdrop-filter: blur(2px);
+    }
+
+    /* 移动端聊天优化 */
+    .mobile-layout .chat-message {
+      margin-bottom: 0.75rem;
+    }
+
+    .mobile-layout .chat-bubble {
+      max-width: 85%;
+      word-wrap: break-word;
+    }
+
+    /* 移动端输入区域优化 */
+    .mobile-layout .card-body:last-child {
+      padding: 1rem;
+    }
+
+    .mobile-layout #userMessage {
+      min-height: 2.5rem;
+      max-height: 8rem;
+    }
+
+    /* 设备特定优化 */
+    .device-iphone .input,
+    .device-iphone .textarea {
+      font-size: 16px !important;
+      border-radius: 8px;
+    }
+
+    .device-android .btn {
+      touch-action: manipulation;
+    }
+
+    .platform-ios body {
+      overscroll-behavior: none;
+    }
+
+    .browser-safari .chat-container {
+      height: calc(100vh - 8rem - env(safe-area-inset-bottom));
+    }
+
+    .high-dpi .avatar img {
+      image-rendering: crisp-edges;
+    }
+
+    .small-screen .navbar {
+      padding: 0.25rem 0.5rem;
+    }
+
+    .small-screen .btn-primary {
+      font-size: 0.875rem;
+    }
+
+    .large-screen #personaList {
+      width: 28rem;
+    }
+
+    .ultra-wide main {
+      max-width: 1600px;
+    }
+
+    /* 鼠标设备优化 */
+    .mouse-device .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .mouse-device .persona-item:hover {
+      transform: translateX(4px);
+    }
+
+    /* 触摸设备优化 */
+    .touch-device .scrollbar-hide {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .touch-device button,
+    .touch-device .btn,
+    .touch-device a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* 响应式网格 */
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .command-help-item {
+        margin-bottom: 0.5rem;
+      }
+      
+      .modal-box {
+        width: 95%;
+        max-width: none;
+        margin: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar-start h1 {
+        font-size: 1.125rem;
+      }
+      
+      .btn {
+        padding: 0.5rem 0.75rem;
+      }
+      
+      .btn-sm {
+        padding: 0.25rem 0.5rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        font-size: 14px;
+      }
+      
+      .navbar {
+        padding: 0.25rem 0.5rem;
+      }
+    }
+
+    /* 超宽屏幕优化 */
+    @media (min-width: 1920px) {
+      main {
+        max-width: 1600px;
+      }
+      
+      #personaList {
+        width: 28rem;
+      }
+    }
+
+    /* 高DPI屏幕优化 */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .avatar img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+      
+      i.fa {
+        transform: scale(1);
+        transform-origin: center;
+      }
+    }
+
+    /* 紧凑模式 */
+    .compact-mode .p-4 {
+      padding: 0.75rem;
+    }
+
+    .compact-mode .p-6 {
+      padding: 1rem;
+    }
+
+    .compact-mode .py-6 {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .compact-mode .px-4 {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .compact-mode .space-y-4 > * + * {
+      margin-top: 0.75rem;
+    }
+
+    .compact-mode .space-y-6 > * + * {
+      margin-top: 1rem;
+    }
+
+    .compact-mode .gap-6 {
+      gap: 1rem;
+    }
+
+    .compact-mode .text-lg {
+      font-size: 1rem;
+    }
+
+    .compact-mode .text-xl {
+      font-size: 1.125rem;
+    }
+
+    .compact-mode .btn {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .compact-mode .chat-message {
+      margin-bottom: 0.5rem;
+    }
+
+    .compact-mode .persona-item {
+      padding: 0.5rem;
+    }
+
+    /* 动态高度调整 */
+    .dynamic-height {
+      transition: height 0.3s ease;
+    }
+
+    /* 内容自适应 */
+    .content-adaptive {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .content-adaptive > * {
+      flex-shrink: 0;
+    }
+
+    .content-adaptive .flex-1 {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
     /* 重要消息样式 */
     .chat-message.important .chat-bubble {
       position: relative;
@@ -71,6 +343,192 @@
       justify-content: center;
       font-size: 10px;
       font-weight: bold;
+    }
+
+    /* 性能优化相关样式 */
+    .virtual-scroll-container {
+      position: relative;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .virtual-visible-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      will-change: transform;
+    }
+
+    .virtual-spacer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+    }
+
+    .message-placeholder {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      position: relative;
+      transition: background-color 0.2s ease;
+    }
+
+    .message-placeholder:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .message-placeholder::after {
+      content: '加载中...';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    .lazy-load-trigger {
+      height: 1px;
+      background: transparent;
+      margin: 10px 0;
+    }
+
+    .loading-indicator {
+      padding: 10px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.02);
+      border-radius: 8px;
+      margin: 5px 0;
+    }
+
+    .loading-indicator .loading {
+      display: inline-block;
+    }
+
+    /* 图片懒加载样式 */
+    .lazy-image {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: rgba(0, 0, 0, 0.1);
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lazy-image.loaded {
+      opacity: 1;
+    }
+
+    .lazy-image.error {
+      opacity: 0.5;
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .lazy-image::before {
+      content: '加载中...';
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 12px;
+    }
+
+    .lazy-image.loaded::before,
+    .lazy-image.error::before {
+      display: none;
+    }
+
+    .lazy-image.error::after {
+      content: '加载失败';
+      color: rgba(255, 0, 0, 0.7);
+      font-size: 12px;
+    }
+
+    /* 内存优化指示器 */
+    .memory-warning {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background: hsl(var(--wa));
+      color: hsl(var(--wac));
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      z-index: 1000;
+      animation: slideInRight 0.3s ease;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* 性能监控面板 */
+    .performance-monitor {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: hsl(var(--b1));
+      border: 1px solid hsl(var(--b3));
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 11px;
+      font-family: monospace;
+      z-index: 1000;
+      max-width: 200px;
+      opacity: 0.8;
+    }
+
+    .performance-monitor.hidden {
+      display: none;
+    }
+
+    .performance-monitor h4 {
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .performance-monitor .stat {
+      display: flex;
+      justify-content: space-between;
+      margin: 2px 0;
+    }
+
+    .performance-monitor .stat-value {
+      font-weight: bold;
+    }
+
+    /* 滚动性能优化 */
+    .optimized-scroll {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      will-change: scroll-position;
+    }
+
+    .optimized-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .optimized-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+    }
+
+    .optimized-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+    }
+
+    .optimized-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.5);
     }
 
     /* 上下文管理按钮悬停效果 */
@@ -291,6 +749,9 @@
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li><a id="editPersonaBtn"><i class="fa fa-pencil mr-2"></i>编辑人格</a></li>
               <li><a id="setDefaultPersonaBtn"><i class="fa fa-star mr-2"></i>设置为默认</a></li>
+              <li class="menu-title"><span>头像管理</span></li>
+              <li><a id="changeAvatarBtn"><i class="fa fa-image mr-2"></i>更换头像</a></li>
+              <li><a id="resetPersonaAvatarBtn"><i class="fa fa-refresh mr-2"></i>重置头像</a></li>
               <li class="menu-title"><span>对话管理</span></li>
               <li><a onclick="showImportantMessages()"><i class="fa fa-star mr-2"></i>重要消息</a></li>
               <li><a onclick="showConversationSummary()"><i class="fa fa-chart-bar mr-2"></i>对话摘要</a></li>
@@ -403,6 +864,10 @@
                 <i class="fa fa-upload mr-2"></i>
                 上传头像
               </button>
+              <button type="button" id="resetAvatarBtn" class="btn btn-outline btn-sm">
+                <i class="fa fa-refresh mr-2"></i>
+                重置头像
+              </button>
               <input type="file" id="avatarInput" accept="image/*" class="hidden">
             </div>
           </div>
@@ -501,109 +966,738 @@
 
   <!-- 设置模态框 -->
   <dialog id="settingsModal" class="modal">
-    <div class="modal-box w-11/12 max-w-2xl">
-      <h3 class="font-bold text-lg mb-4">应用设置</h3>
+    <div class="modal-box w-11/12 max-w-4xl max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-lg">应用设置</h3>
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost">
+            <i class="fa fa-times"></i>
+          </button>
+        </form>
+      </div>
 
-      <div class="space-y-4">
-        <!-- API设置 -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">AI服务提供商</span>
-          </label>
-          <div class="flex space-x-2">
-            <label class="label cursor-pointer">
-              <input type="radio" name="apiProvider" value="volcano" class="radio radio-primary" checked>
-              <span class="label-text ml-2">火山引擎</span>
+      <!-- 设置标签页 -->
+      <div class="tabs tabs-bordered mb-4">
+        <a class="tab tab-active" data-tab="api">API配置</a>
+        <a class="tab" data-tab="ui">界面设置</a>
+        <a class="tab" data-tab="data">数据管理</a>
+        <a class="tab" data-tab="privacy">隐私设置</a>
+        <a class="tab" data-tab="advanced">高级设置</a>
+        <a class="tab" data-tab="testing">测试调试</a>
+      </div>
+
+      <div class="flex-1 overflow-y-auto">
+        <!-- API配置标签页 -->
+        <div id="apiTab" class="tab-content space-y-4">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">AI服务提供商</span>
             </label>
+            <div class="flex space-x-4">
+              <label class="label cursor-pointer">
+                <input type="radio" name="apiProvider" value="volcano" class="radio radio-primary" checked>
+                <span class="label-text ml-2">火山引擎</span>
+              </label>
+              <label class="label cursor-pointer">
+                <input type="radio" name="apiProvider" value="ollama" class="radio radio-primary">
+                <span class="label-text ml-2">本地Ollama</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 火山引擎设置 -->
+          <div id="volcanoSettings" class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">火山引擎配置</h4>
+              
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">API密钥 <span class="text-error">*</span></span>
+                </label>
+                <div class="input-group">
+                  <input type="password" id="volcanoApiKey" class="input input-bordered flex-1" placeholder="输入API密钥">
+                  <button type="button" id="toggleVolcanoKey" class="btn btn-square">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </div>
+                <div class="label">
+                  <span class="label-text-alt">请妥善保管您的API密钥</span>
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">API端点</span>
+                </label>
+                <input type="text" id="volcanoEndpoint" class="input input-bordered" 
+                       value="https://ark.cn-beijing.volces.com/api/v3/chat/completions" 
+                       placeholder="API端点地址">
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">模型</span>
+                </label>
+                <select id="volcanoModel" class="select select-bordered">
+                  <option value="doubao-1.5-pro-32k-250115">doubao-1.5-pro-32k-250115</option>
+                  <option value="doubao-1.5-pro-4k-250115">doubao-1.5-pro-4k-250115</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ollama设置 -->
+          <div id="ollamaSettings" class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">Ollama配置</h4>
+              
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">服务地址</span>
+                </label>
+                <div class="input-group">
+                  <input type="text" id="ollamaEndpoint" class="input input-bordered flex-1" 
+                         value="http://localhost:11434" placeholder="Ollama服务地址">
+                  <button type="button" id="testOllamaConnection" class="btn btn-outline">
+                    <i class="fa fa-plug mr-1"></i>
+                    测试连接
+                  </button>
+                </div>
+                <div class="label">
+                  <span class="label-text-alt">
+                    <span id="ollamaStatusText" class="text-warning">检测中...</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">模型</span>
+                </label>
+                <div class="input-group">
+                  <select id="ollamaModel" class="select select-bordered flex-1">
+                    <option value="llama2">llama2</option>
+                    <option value="llama3">llama3</option>
+                    <option value="qwen">qwen</option>
+                    <option value="gemma">gemma</option>
+                  </select>
+                  <button type="button" id="refreshOllamaModels" class="btn btn-outline">
+                    <i class="fa fa-refresh"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="alert alert-info">
+                <i class="fa fa-info-circle"></i>
+                <div class="flex-1">
+                  <span>需要先安装并启动Ollama服务</span>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline" onclick="showOllamaGuide()">
+                  设置指南
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 界面设置标签页 -->
+        <div id="uiTab" class="tab-content space-y-4 hidden">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">主题</span>
+            </label>
+            <div class="flex space-x-4">
+              <label class="label cursor-pointer">
+                <input type="radio" name="theme" value="light" class="radio radio-primary" checked>
+                <span class="label-text ml-2">浅色主题</span>
+              </label>
+              <label class="label cursor-pointer">
+                <input type="radio" name="theme" value="dark" class="radio radio-primary">
+                <span class="label-text ml-2">深色主题</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">语言</span>
+            </label>
+            <select id="language" class="select select-bordered w-full max-w-xs">
+              <option value="zh-CN">简体中文</option>
+              <option value="en-US">English</option>
+            </select>
+          </div>
+
+          <div class="form-control">
             <label class="label cursor-pointer">
-              <input type="radio" name="apiProvider" value="ollama" class="radio radio-primary">
-              <span class="label-text ml-2">本地Ollama</span>
+              <span class="label-text font-semibold">紧凑模式</span>
+              <input type="checkbox" id="compactMode" class="toggle toggle-primary">
+            </label>
+            <div class="label">
+              <span class="label-text-alt">启用后界面元素间距更紧凑</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">启用通知</span>
+              <input type="checkbox" id="enableNotifications" class="toggle toggle-primary" checked>
+            </label>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">启用声音</span>
+              <input type="checkbox" id="soundEnabled" class="toggle toggle-primary" checked>
             </label>
           </div>
         </div>
 
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">火山引擎API密钥</span>
-          </label>
-          <input type="password" id="volcanoApiKey" class="input input-bordered" placeholder="输入API密钥">
-        </div>
-
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Ollama服务地址</span>
-          </label>
-          <input type="text" id="ollamaEndpoint" class="input input-bordered" value="http://localhost:11434"
-            placeholder="Ollama服务地址">
-        </div>
-
-        <!-- 数据管理 -->
-        <div class="divider">数据管理</div>
-
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">数据存储</span>
-          </label>
+        <!-- 数据管理标签页 -->
+        <div id="dataTab" class="tab-content space-y-4 hidden">
           <div class="alert alert-info">
             <i class="fa fa-info-circle"></i>
-            <span>所有数据都存储在您的浏览器本地，不会上传到服务器</span>
+            <div class="flex-1">
+              <h4 class="font-bold">数据存储说明</h4>
+              <p class="text-sm">所有数据都存储在您的浏览器本地，包括人格设置、聊天记录和应用配置。数据不会上传到任何服务器。</p>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline" onclick="showDataStorageInfo()">
+              详细说明
+            </button>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">自动保存</span>
+              <input type="checkbox" id="autoSave" class="toggle toggle-primary" checked>
+            </label>
+            <div class="label">
+              <span class="label-text-alt">自动保存聊天记录和设置</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">聊天记录保留数量</span>
+            </label>
+            <input type="range" id="maxChatHistory" min="100" max="5000" value="1000" 
+                   class="range range-primary" step="100">
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>100</span>
+              <span>2500</span>
+              <span>5000</span>
+            </div>
+            <div class="label">
+              <span class="label-text-alt">当前值: <span id="maxChatHistoryValue">1000</span> 条</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">记忆条目保留数量</span>
+            </label>
+            <input type="range" id="maxMemoryEntries" min="100" max="2000" value="500" 
+                   class="range range-primary" step="50">
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>100</span>
+              <span>1000</span>
+              <span>2000</span>
+            </div>
+            <div class="label">
+              <span class="label-text-alt">当前值: <span id="maxMemoryEntriesValue">500</span> 条</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">数据保留天数</span>
+            </label>
+            <input type="range" id="dataRetentionDays" min="7" max="365" value="90" 
+                   class="range range-primary" step="7">
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>7天</span>
+              <span>180天</span>
+              <span>365天</span>
+            </div>
+            <div class="label">
+              <span class="label-text-alt">当前值: <span id="dataRetentionDaysValue">90</span> 天</span>
+            </div>
+          </div>
+
+          <div class="divider">备份与恢复</div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">启用自动备份</span>
+              <input type="checkbox" id="autoBackupEnabled" class="toggle toggle-primary">
+            </label>
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">自动备份间隔</span>
+            </label>
+            <select id="autoBackupInterval" class="select select-bordered w-full max-w-xs">
+              <option value="1">每天</option>
+              <option value="3">每3天</option>
+              <option value="7">每周</option>
+              <option value="14">每两周</option>
+              <option value="30">每月</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+            <button id="exportDataBtn" class="btn btn-outline">
+              <i class="fa fa-download mr-2"></i>
+              导出数据
+            </button>
+            <button id="importDataBtn" class="btn btn-outline">
+              <i class="fa fa-upload mr-2"></i>
+              导入数据
+            </button>
+            <button id="clearDataBtn" class="btn btn-error btn-outline">
+              <i class="fa fa-trash mr-2"></i>
+              清空数据
+            </button>
+          </div>
+
+          <input type="file" id="importDataFile" accept=".json" class="hidden">
+        </div>
+
+        <!-- 隐私设置标签页 -->
+        <div id="privacyTab" class="tab-content space-y-4 hidden">
+          <div class="alert alert-success">
+            <i class="fa fa-shield"></i>
+            <div class="flex-1">
+              <h4 class="font-bold">隐私保护</h4>
+              <p class="text-sm">本应用完全在本地运行，不收集任何个人信息，不上传任何数据到服务器。</p>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">数据存储同意</span>
+              <input type="checkbox" id="dataStorageConsent" class="toggle toggle-primary">
+            </label>
+            <div class="label">
+              <span class="label-text-alt">同意在浏览器本地存储聊天数据</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">启用分析统计</span>
+              <input type="checkbox" id="analyticsEnabled" class="toggle toggle-primary">
+            </label>
+            <div class="label">
+              <span class="label-text-alt">启用本地使用统计分析（不上传数据）</span>
+            </div>
+          </div>
+
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">数据清理</h4>
+              <p class="text-sm opacity-70 mb-4">定期清理可以释放存储空间并提高性能</p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <button id="cleanExpiredDataBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-broom mr-2"></i>
+                  清理过期数据
+                </button>
+                <button id="optimizeStorageBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-compress mr-2"></i>
+                  优化存储
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="flex space-x-2">
-          <button class="btn btn-outline flex-1">
-            <i class="fa fa-download mr-2"></i>
-            导出数据
-          </button>
-          <button class="btn btn-outline flex-1">
-            <i class="fa fa-upload mr-2"></i>
-            导入数据
-          </button>
-          <button class="btn btn-error btn-outline">
-            <i class="fa fa-trash mr-2"></i>
-            清空数据
-          </button>
+        <!-- 高级设置标签页 -->
+        <div id="advancedTab" class="tab-content space-y-4 hidden">
+          <div class="alert alert-warning">
+            <i class="fa fa-exclamation-triangle"></i>
+            <div class="flex-1">
+              <span>高级设置可能影响应用稳定性，请谨慎修改</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">调试模式</span>
+              <input type="checkbox" id="debugMode" class="toggle toggle-primary">
+            </label>
+            <div class="label">
+              <span class="label-text-alt">启用详细日志输出</span>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text font-semibold">实验性功能</span>
+              <input type="checkbox" id="experimentalFeatures" class="toggle toggle-primary">
+            </label>
+            <div class="label">
+              <span class="label-text-alt">启用实验性功能（可能不稳定）</span>
+            </div>
+          </div>
+
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">系统信息</h4>
+              <div class="stats stats-vertical lg:stats-horizontal shadow">
+                <div class="stat">
+                  <div class="stat-title">存储使用</div>
+                  <div class="stat-value text-sm" id="storageUsage">计算中...</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-title">人格数量</div>
+                  <div class="stat-value text-sm" id="personaCount">0</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-title">消息数量</div>
+                  <div class="stat-value text-sm" id="messageCount">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">重置选项</h4>
+              <p class="text-sm opacity-70 mb-4">重置特定设置或恢复默认配置</p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <button id="resetApiSettingsBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-refresh mr-2"></i>
+                  重置API设置
+                </button>
+                <button id="resetUiSettingsBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-refresh mr-2"></i>
+                  重置界面设置
+                </button>
+                <button id="resetAllSettingsBtn" class="btn btn-error btn-outline btn-sm">
+                  <i class="fa fa-refresh mr-2"></i>
+                  重置所有设置
+                </button>
+                <button id="exportSettingsBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-download mr-2"></i>
+                  导出设置
+                </button>
+                <button id="validateConfigBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-check mr-2"></i>
+                  验证配置
+                </button>
+                <button id="generateReportBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-file-text mr-2"></i>
+                  生成报告
+                </button>
+                <button id="compareConfigBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-exchange mr-2"></i>
+                  比较配置
+                </button>
+                <button id="autoFixConfigBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-magic mr-2"></i>
+                  自动修复
+                </button>
+              </div>
+              
+              <input type="file" id="importSettingsFile" accept=".json" class="hidden">
+              <button id="importSettingsBtn" class="btn btn-outline btn-sm mt-2">
+                <i class="fa fa-upload mr-2"></i>
+                导入设置
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 测试调试标签页 -->
+        <div id="testingTab" class="tab-content space-y-4 hidden">
+          <div class="alert alert-info">
+            <i class="fa fa-info-circle"></i>
+            <div class="flex-1">
+              <span>测试和调试工具可以帮助验证应用功能和诊断问题</span>
+            </div>
+          </div>
+
+          <!-- 测试控制面板 -->
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">测试控制面板</h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <button id="runAllTestsBtn" class="btn btn-primary btn-sm w-full">
+                    <i class="fa fa-play mr-2"></i>
+                    运行所有测试
+                  </button>
+                  <button id="runCoreTestsBtn" class="btn btn-outline btn-sm w-full">
+                    <i class="fa fa-cog mr-2"></i>
+                    核心功能测试
+                  </button>
+                  <button id="runStorageTestsBtn" class="btn btn-outline btn-sm w-full">
+                    <i class="fa fa-database mr-2"></i>
+                    存储测试
+                  </button>
+                  <button id="runApiTestsBtn" class="btn btn-outline btn-sm w-full">
+                    <i class="fa fa-server mr-2"></i>
+                    API测试
+                  </button>
+                </div>
+                
+                <div class="space-y-2">
+                  <button id="runPerformanceTestsBtn" class="btn btn-outline btn-sm w-full">
+                    <i class="fa fa-tachometer mr-2"></i>
+                    性能测试
+                  </button>
+                  <button id="runIntegrationTestsBtn" class="btn btn-outline btn-sm w-full">
+                    <i class="fa fa-link mr-2"></i>
+                    集成测试
+                  </button>
+                  <button id="checkDataIntegrityBtn" class="btn btn-outline btn-sm w-full">
+                    <i class="fa fa-shield mr-2"></i>
+                    数据完整性检查
+                  </button>
+                  <button id="clearTestDataBtn" class="btn btn-error btn-outline btn-sm w-full">
+                    <i class="fa fa-trash mr-2"></i>
+                    清理测试数据
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 测试结果显示 -->
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="card-title text-base">测试结果</h4>
+                <div class="flex items-center space-x-2">
+                  <span id="testProgress" class="text-sm opacity-70">准备就绪</span>
+                  <div id="testProgressBar" class="progress progress-primary w-20 h-2 hidden"></div>
+                </div>
+              </div>
+              
+              <div id="testResultsContainer" class="space-y-2 max-h-60 overflow-y-auto">
+                <div class="text-center py-8 opacity-60">
+                  <i class="fa fa-flask text-2xl mb-2"></i>
+                  <p>点击上方按钮开始测试</p>
+                </div>
+              </div>
+              
+              <!-- 测试统计 -->
+              <div id="testStats" class="stats stats-horizontal shadow mt-4 hidden">
+                <div class="stat">
+                  <div class="stat-title">总计</div>
+                  <div class="stat-value text-sm" id="totalTests">0</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-title">通过</div>
+                  <div class="stat-value text-sm text-success" id="passedTests">0</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-title">失败</div>
+                  <div class="stat-value text-sm text-error" id="failedTests">0</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-title">通过率</div>
+                  <div class="stat-value text-sm" id="passRate">0%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 调试工具 -->
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">调试工具</h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <button id="enableDebugModeBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-bug mr-2"></i>
+                  启用调试模式
+                </button>
+                <button id="showPerformanceStatsBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-chart-line mr-2"></i>
+                  性能统计
+                </button>
+                <button id="exportDebugLogBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-download mr-2"></i>
+                  导出调试日志
+                </button>
+                <button id="clearCacheBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-refresh mr-2"></i>
+                  清理缓存
+                </button>
+                <button id="simulateErrorBtn" class="btn btn-warning btn-outline btn-sm">
+                  <i class="fa fa-exclamation-triangle mr-2"></i>
+                  模拟错误
+                </button>
+                <button id="memoryUsageBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-memory mr-2"></i>
+                  内存使用情况
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- API模拟器 -->
+          <div class="card bg-base-200">
+            <div class="card-body p-4">
+              <h4 class="card-title text-base">API模拟器</h4>
+              <p class="text-sm opacity-70 mb-4">模拟API响应用于测试</p>
+              
+              <div class="form-control mb-4">
+                <label class="label">
+                  <span class="label-text">模拟类型</span>
+                </label>
+                <select id="mockType" class="select select-bordered select-sm">
+                  <option value="success">成功响应</option>
+                  <option value="error">错误响应</option>
+                  <option value="timeout">超时</option>
+                  <option value="network-error">网络错误</option>
+                </select>
+              </div>
+              
+              <div class="form-control mb-4">
+                <label class="label">
+                  <span class="label-text">模拟响应内容</span>
+                </label>
+                <textarea id="mockResponse" class="textarea textarea-bordered textarea-sm" rows="3" 
+                          placeholder='{"message": {"role": "assistant", "content": "模拟响应"}}'></textarea>
+              </div>
+              
+              <div class="flex space-x-2">
+                <button id="enableMockBtn" class="btn btn-primary btn-sm">
+                  <i class="fa fa-play mr-2"></i>
+                  启用模拟
+                </button>
+                <button id="disableMockBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-stop mr-2"></i>
+                  禁用模拟
+                </button>
+                <button id="testMockBtn" class="btn btn-outline btn-sm">
+                  <i class="fa fa-test mr-2"></i>
+                  测试模拟
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="modal-action">
+        <button id="resetSettingsBtn" class="btn btn-outline">
+          <i class="fa fa-refresh mr-2"></i>
+          重置
+        </button>
         <form method="dialog">
-          <button class="btn">关闭</button>
+          <button class="btn">取消</button>
         </form>
-        <button id="saveSettingsBtn" class="btn btn-primary">保存设置</button>
+        <button id="saveSettingsBtn" class="btn btn-primary">
+          <i class="fa fa-save mr-2"></i>
+          保存设置
+        </button>
       </div>
     </div>
   </dialog>
 
-  <!-- 欢迎引导模态框 -->
-  <dialog id="welcomeModal" class="modal">
-    <div class="modal-box w-11/12 max-w-lg">
-      <h3 class="font-bold text-lg mb-4">欢迎使用AI人格聊天应用！</h3>
+  <!-- Ollama状态指示器 -->
+  <div id="ollamaStatusIndicator" class="fixed bottom-4 left-4 z-40 hidden">
+    <div class="alert alert-warning shadow-lg w-auto">
+      <i class="fa fa-exclamation-triangle"></i>
+      <div>
+        <h4 class="font-bold text-sm">Ollama服务不可用</h4>
+        <p class="text-xs">点击查看设置指南</p>
+      </div>
+      <button class="btn btn-sm btn-outline" onclick="guideService.showOllamaSetupGuide()">
+        设置
+      </button>
+    </div>
+  </div>
 
-      <div class="space-y-4">
-        <div class="alert alert-info">
-          <i class="fa fa-info-circle"></i>
-          <div>
-            <h4 class="font-bold">数据隐私保护</h4>
-            <p class="text-sm">您的所有聊天记录和人格设置都存储在浏览器本地，不会上传到任何服务器。</p>
-          </div>
+  <!-- 错误管理面板 -->
+  <div id="errorManagementPanel" class="fixed bottom-4 right-4 z-40 hidden">
+    <div class="dropdown dropdown-top dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-error btn-circle btn-sm">
+        <i class="fa fa-exclamation-triangle"></i>
+        <span id="errorCount" class="badge badge-xs badge-warning absolute -top-1 -right-1">0</span>
+      </div>
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80">
+        <li class="menu-title">
+          <span class="flex items-center justify-between">
+            <span>最近错误</span>
+            <button class="btn btn-ghost btn-xs" onclick="window.errorHandler?.clearErrorLog()">清空</button>
+          </span>
+        </li>
+        <div id="recentErrorsList" class="max-h-60 overflow-y-auto">
+          <!-- 错误列表将动态生成 -->
         </div>
+        <li>
+          <a onclick="showErrorManagementModal()">
+            <i class="fa fa-cog mr-2"></i>
+            错误管理
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-        <div class="steps steps-vertical lg:steps-horizontal">
-          <div class="step step-primary">配置API</div>
-          <div class="step">创建人格</div>
-          <div class="step">开始聊天</div>
+  <!-- 错误管理模态框 -->
+  <dialog id="errorManagementModal" class="modal">
+    <div class="modal-box w-11/12 max-w-6xl max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-lg">错误管理</h3>
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost">
+            <i class="fa fa-times"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- 错误统计 -->
+      <div class="stats stats-horizontal shadow mb-4">
+        <div class="stat">
+          <div class="stat-title">总错误数</div>
+          <div class="stat-value text-error" id="totalErrorCount">0</div>
         </div>
+        <div class="stat">
+          <div class="stat-title">高级错误</div>
+          <div class="stat-value text-warning" id="highErrorCount">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">最近24小时</div>
+          <div class="stat-value text-info" id="recentErrorCount">0</div>
+        </div>
+      </div>
 
-        <p class="text-sm opacity-70">
-          首次使用需要配置AI服务。您可以选择使用火山引擎API或本地Ollama服务。
-        </p>
+      <!-- 错误分类标签 -->
+      <div class="tabs tabs-bordered mb-4">
+        <a class="tab tab-active" data-tab="all">全部</a>
+        <a class="tab" data-tab="critical">严重</a>
+        <a class="tab" data-tab="high">高级</a>
+        <a class="tab" data-tab="medium">中级</a>
+        <a class="tab" data-tab="low">低级</a>
+      </div>
+
+      <!-- 错误列表 -->
+      <div class="flex-1 overflow-y-auto">
+        <div id="errorDetailsList" class="space-y-2">
+          <!-- 错误详情列表将动态生成 -->
+        </div>
       </div>
 
       <div class="modal-action">
-        <button id="startSetupBtn" class="btn btn-primary">开始设置</button>
+        <button class="btn btn-outline" onclick="window.errorHandler?.exportErrorReport()">
+          <i class="fa fa-download mr-2"></i>
+          导出报告
+        </button>
+        <button class="btn btn-error" onclick="window.errorHandler?.clearErrorLog(); updateErrorManagementModal()">
+          <i class="fa fa-trash mr-2"></i>
+          清空所有错误
+        </button>
         <form method="dialog">
-          <button class="btn btn-ghost">稍后设置</button>
+          <button class="btn">关闭</button>
         </form>
       </div>
     </div>
@@ -667,6 +1761,21 @@
   // 上传头像
   uploadAvatarBtn.addEventListener('click', () => avatarInput.click());
   avatarInput.addEventListener('change', handleAvatarUpload);
+  
+  // 重置头像
+  const resetAvatarBtn = document.getElementById('resetAvatarBtn');
+  resetAvatarBtn.addEventListener('click', handleAvatarReset);
+  
+  // 监听人格名称变化，更新头像预览
+  personaNameInput.addEventListener('input', function() {
+    const previewAvatar = document.getElementById('previewAvatar');
+    const currentName = this.value.trim() || 'A';
+    
+    // 如果没有自定义头像，更新默认头像显示
+    if (!previewAvatar.dataset.avatarData) {
+      app.avatarManager.setDefaultAvatarContent(previewAvatar, currentName);
+    }
+  });
 
   // 添加对话
   addBeginDialogBtn.addEventListener('click', () => addDialogItem('begin'));
@@ -677,6 +1786,13 @@
 
   // 删除当前人格
   deletePersonaBtn.addEventListener('click', deleteCurrentPersona);
+  
+  // 头像管理
+  const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+  const resetPersonaAvatarBtn = document.getElementById('resetPersonaAvatarBtn');
+  
+  changeAvatarBtn.addEventListener('click', handleChangeAvatar);
+  resetPersonaAvatarBtn.addEventListener('click', handleResetPersonaAvatar);
 
   // 搜索人格
   searchPersona.addEventListener('input', filterPersonas);
@@ -702,17 +1818,16 @@
   : `<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
     ${persona.name.charAt(0)}</div>`;
 
-  personaItem.innerHTML = `
-  <div class="flex items-center space-x-3">
-    ${avatar}
-    <div class="flex-1 min-w-0">
-      <h4 class="font-medium text-gray-800 truncate">${persona.name}</h4>
-      <p class="text-xs text-gray-500 truncate">${persona.prompt.substring(0, 30)}${persona.prompt.length > 30 ? '...' :
-        ''}</p>
-    </div>
-  </div>
-  <div class="text-xs text-gray-500">${formatDate(persona.lastActive)}</div>
-  `;
+  personaItem.innerHTML = 
+  '<div class="flex items-center space-x-3">' +
+    avatar +
+    '<div class="flex-1 min-w-0">' +
+      '<h4 class="font-medium text-gray-800 truncate">' + persona.name + '</h4>' +
+      '<p class="text-xs text-gray-500 truncate">' + persona.prompt.substring(0, 30) + (persona.prompt.length > 30 ? '...' :
+        '') + '</p>' +
+    '</div>' +
+  '</div>' +
+  '<div class="text-xs text-gray-500">' + formatDate(persona.lastActive) + '</div>';
 
   personaItem.addEventListener('click', () => selectPersona(persona.id));
   personaItems.appendChild(personaItem);
@@ -739,13 +1854,12 @@
   const messageDiv = document.createElement('div');
   messageDiv.className = `flex items-start space-x-3 ${isUser ? 'justify-end' : 'justify-start'}`;
 
-  messageDiv.innerHTML = `
-  ${isUser ? '' : avatar}
-  <div class="chat-bubble-${isUser ? 'user' : 'ai'} max-w-[85%] p-4 shadow-sm">
-    <p>${message.content}</p>
-  </div>
-  ${isUser ? avatar : ''}
-  `;
+  messageDiv.innerHTML = 
+  (isUser ? '' : avatar) +
+  '<div class="chat-bubble-' + (isUser ? 'user' : 'ai') + ' max-w-[85%] p-4 shadow-sm">' +
+    '<p>' + message.content + '</p>' +
+  '</div>' +
+  (isUser ? avatar : '');
 
   chatMessages.appendChild(messageDiv);
   });
@@ -764,8 +1878,7 @@
   currentPersonaLastActive.textContent = `上次活跃: ${formatDate(currentPersona.lastActive)}`;
 
   if (currentPersona.avatar) {
-  currentPersonaAvatar.innerHTML = `<img src="${currentPersona.avatar}" alt="${currentPersona.name}头像"
-    class="w-full h-full rounded-full object-cover">`;
+  currentPersonaAvatar.innerHTML = '<img src="' + currentPersona.avatar + '" alt="' + currentPersona.name + '头像" class="w-full h-full rounded-full object-cover">';
   } else {
   currentPersonaAvatar.textContent = currentPersona.name.charAt(0);
   }
@@ -859,63 +1972,49 @@
   previewAvatar.style.backgroundImage = "none";
 
   // 清空对话容器，只保留两个空项
-  beginDialogsContainer.innerHTML = `
-  <div class="begin-dialog-item flex items-start space-x-2">
-    <select
-      class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
-      <option value="user">用户</option>
-      <option value="assistant">助手</option>
-    </select>
-    <input type="text"
-      class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-      placeholder="输入对话内容">
-    <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
-      <i class="fa fa-times"></i>
-    </button>
-  </div>
-  <div class="begin-dialog-item flex items-start space-x-2">
-    <select
-      class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
-      <option value="user">用户</option>
-      <option value="assistant">助手</option>
-    </select>
-    <input type="text"
-      class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-      placeholder="输入对话内容">
-    <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
-      <i class="fa fa-times"></i>
-    </button>
-  </div>
-  `;
+  beginDialogsContainer.innerHTML = 
+  '<div class="begin-dialog-item flex items-start space-x-2">' +
+    '<select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">' +
+      '<option value="user">用户</option>' +
+      '<option value="assistant">助手</option>' +
+    '</select>' +
+    '<input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">' +
+    '<button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">' +
+      '<i class="fa fa-times"></i>' +
+    '</button>' +
+  '</div>' +
+  '<div class="begin-dialog-item flex items-start space-x-2">' +
+    '<select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">' +
+      '<option value="user">用户</option>' +
+      '<option value="assistant">助手</option>' +
+    '</select>' +
+    '<input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">' +
+    '<button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">' +
+      '<i class="fa fa-times"></i>' +
+    '</button>' +
+  '</div>';
 
-  moodImitationDialogsContainer.innerHTML = `
-  <div class="mood-dialog-item flex items-start space-x-2">
-    <select
-      class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
-      <option value="user">用户</option>
-      <option value="assistant">助手</option>
-    </select>
-    <input type="text"
-      class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-      placeholder="输入对话内容">
-    <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
-      <i class="fa fa-times"></i>
-    </button>
-  </div>
-  <div class="mood-dialog-item flex items-start space-x-2">
-    <select
-      class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
-      <option value="user">用户</option>
-      <option value="assistant">助手</option>
-    </select>
-    <input type="text"
-      class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-      placeholder="输入对话内容">
-    <button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">
-      <i class="fa fa-times"></i>
-    </button>
-  </div>
-  `;
+  moodImitationDialogsContainer.innerHTML = 
+  '<div class="mood-dialog-item flex items-start space-x-2">' +
+    '<select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">' +
+      '<option value="user">用户</option>' +
+      '<option value="assistant">助手</option>' +
+    '</select>' +
+    '<input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">' +
+    '<button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">' +
+      '<i class="fa fa-times"></i>' +
+    '</button>' +
+  '</div>' +
+  '<div class="mood-dialog-item flex items-start space-x-2">' +
+    '<select class="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">' +
+      '<option value="user">用户</option>' +
+      '<option value="assistant">助手</option>' +
+    '</select>' +
+    '<input type="text" class="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm" placeholder="输入对话内容">' +
+    '<button type="button" class="delete-dialog-btn text-red-500 hover:text-red-700 transition-colors">' +
+      '<i class="fa fa-times"></i>' +
+    '</button>' +
+  '</div>';
 
   // 添加对话删除按钮事件
   document.querySelectorAll('.delete-dialog-btn').forEach(btn => {
@@ -1137,15 +2236,20 @@
         const file = e.target.files[0];
         if (!file) return;
 
+        const uploadButton = document.getElementById('uploadAvatarBtn');
+        const loaderId = window.loadingManager?.showButtonLoading(uploadButton, '上传中...');
+
         try {
-          // 显示加载状态
-          const loadingDiv = document.createElement('div');
-          loadingDiv.className = 'loading loading-spinner loading-sm';
-          previewAvatar.innerHTML = '';
-          previewAvatar.appendChild(loadingDiv);
+          // 显示内联加载状态
+          const inlineLoaderId = window.loadingManager?.showInlineLoading(previewAvatar, '处理中...');
 
           // 使用头像管理器处理文件
           const processedAvatar = await app.avatarManager.processAvatarFile(file);
+          
+          // 隐藏内联加载状态
+          if (inlineLoaderId) {
+            window.loadingManager?.hideInlineLoading(inlineLoaderId);
+          }
           
           // 更新预览
           app.avatarManager.previewAvatar(processedAvatar, previewAvatar, personaNameInput.value || 'A');
@@ -1154,7 +2258,7 @@
           previewAvatar.dataset.avatarData = processedAvatar;
           
           // 显示成功提示
-          showToast('头像上传成功！', 'success');
+          window.loadingManager?.showSuccessNotification('头像上传成功！');
           
         } catch (error) {
           console.error('头像上传失败:', error);
@@ -1163,11 +2267,188 @@
           const personaName = personaNameInput.value || 'A';
           app.avatarManager.setDefaultAvatarContent(previewAvatar, personaName);
           
-          // 显示错误提示
-          showToast(error.message, 'error');
+          // 使用错误处理器报告错误
+          if (window.errorHandler) {
+            window.errorHandler.reportError(
+              error.message || '头像上传失败',
+              window.errorHandler.errorCategories.USER,
+              window.errorHandler.errorLevels.MEDIUM,
+              { 
+                fileName: file.name,
+                fileSize: file.size,
+                fileType: file.type,
+                operation: 'avatar_upload'
+              }
+            );
+          } else {
+            showToast(error.message, 'error');
+          }
         } finally {
+          // 隐藏按钮加载状态
+          if (loaderId) {
+            window.loadingManager?.hideButtonLoading(loaderId);
+          }
+          
           // 清空文件输入
           e.target.value = '';
+        }
+      }
+
+      // 处理头像重置
+      function handleAvatarReset() {
+        try {
+          const personaName = personaNameInput.value || 'A';
+          
+          // 清除头像数据
+          delete previewAvatar.dataset.avatarData;
+          
+          // 重置为默认头像
+          app.avatarManager.setDefaultAvatarContent(previewAvatar, personaName);
+          
+          // 显示成功提示
+          showToast('头像已重置为默认头像', 'success');
+          
+        } catch (error) {
+          console.error('头像重置失败:', error);
+          showToast('头像重置失败', 'error');
+        }
+      }
+
+      // 创建更好的默认头像预览
+      function setEnhancedDefaultAvatar(element, name, size = 64) {
+        try {
+          // 生成带主题色彩的SVG头像
+          const themedAvatar = app.avatarManager.generateThemedDefaultAvatar(name, { size });
+          element.innerHTML = `<img src="${themedAvatar}" alt="${name}的默认头像" class="w-full h-full rounded-full object-cover">`;
+        } catch (error) {
+          console.warn('生成主题头像失败，使用基础默认头像:', error);
+          app.avatarManager.setDefaultAvatarContent(element, name);
+        }
+      }
+
+      // 安全地设置头像，带错误处理
+      function setSafeAvatar(element, avatarData, name, fallbackToThemed = true) {
+        if (avatarData && app.avatarManager.isValidBase64Image(avatarData)) {
+          const img = document.createElement('img');
+          img.src = avatarData;
+          img.alt = `${name}的头像`;
+          img.className = 'w-full h-full rounded-full object-cover';
+          
+          img.onload = () => {
+            element.innerHTML = '';
+            element.appendChild(img);
+          };
+          
+          img.onerror = () => {
+            console.warn(`头像加载失败: ${name}，使用默认头像`);
+            if (fallbackToThemed) {
+              setEnhancedDefaultAvatar(element, name);
+            } else {
+              app.avatarManager.setDefaultAvatarContent(element, name);
+            }
+          };
+          
+          // 设置加载状态
+          element.innerHTML = '<div class="loading loading-spinner loading-sm"></div>';
+        } else {
+          // 没有头像数据，使用默认头像
+          if (fallbackToThemed) {
+            setEnhancedDefaultAvatar(element, name);
+          } else {
+            app.avatarManager.setDefaultAvatarContent(element, name);
+          }
+        }
+      }
+
+      // 批量更新头像显示
+      function refreshAllAvatars() {
+        try {
+          // 更新当前人格头像
+          updateCurrentPersonaInfo();
+          
+          // 更新人格列表中的头像
+          renderPersonaList();
+          
+          // 更新聊天消息中的头像
+          renderCurrentChat();
+          
+          console.log('所有头像已刷新');
+        } catch (error) {
+          console.error('刷新头像失败:', error);
+        }
+      }
+
+      // 处理更换头像（从下拉菜单）
+      function handleChangeAvatar() {
+        // 创建隐藏的文件输入
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        
+        fileInput.addEventListener('change', async function(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          try {
+            const currentPersona = app.personaManager.getCurrentPersona();
+            if (!currentPersona) return;
+            
+            // 处理头像文件
+            const processedAvatar = await app.avatarManager.processAvatarFile(file);
+            
+            // 更新人格头像
+            await app.personaManager.updatePersona(currentPersona.id, {
+              ...currentPersona,
+              avatar: processedAvatar
+            });
+            
+            // 更新UI
+            updateCurrentPersonaInfo();
+            await renderPersonaList();
+            
+            showToast('头像更换成功！', 'success');
+            
+          } catch (error) {
+            console.error('头像更换失败:', error);
+            showToast(error.message, 'error');
+          } finally {
+            // 清理临时元素
+            document.body.removeChild(fileInput);
+          }
+        });
+        
+        // 添加到DOM并触发点击
+        document.body.appendChild(fileInput);
+        fileInput.click();
+      }
+
+      // 处理重置人格头像（从下拉菜单）
+      async function handleResetPersonaAvatar() {
+        try {
+          const currentPersona = app.personaManager.getCurrentPersona();
+          if (!currentPersona) return;
+          
+          // 确认对话
+          if (!confirm('确定要重置当前人格的头像吗？')) {
+            return;
+          }
+          
+          // 更新人格，移除头像
+          await app.personaManager.updatePersona(currentPersona.id, {
+            ...currentPersona,
+            avatar: null
+          });
+          
+          // 更新UI
+          updateCurrentPersonaInfo();
+          await renderPersonaList();
+          
+          showToast('头像已重置为默认头像', 'success');
+          
+        } catch (error) {
+          console.error('头像重置失败:', error);
+          showToast('头像重置失败', 'error');
         }
       }
 
@@ -1316,16 +2597,30 @@
         </script>
 
         <!-- 核心JavaScript模块 -->
+        <script src="assets/js/error-handler.js"></script>
+        <script src="assets/js/loading-manager.js"></script>
         <script src="assets/js/core.js"></script>
         <script src="assets/js/database.js"></script>
         <script src="assets/js/storage-fallback.js"></script>
+        <script src="assets/js/settings-manager.js"></script>
+        <script src="assets/js/settings-ui.js"></script>
         <script src="assets/js/avatar-manager.js"></script>
         <script src="assets/js/chat-manager.js"></script>
         <script src="assets/js/context-manager.js"></script>
+        <script src="assets/js/memory-manager.js"></script>
+        <script src="assets/js/session-continuity-manager.js"></script>
         <script src="assets/js/persona-manager.js"></script>
         <script src="assets/js/api-service.js"></script>
+        <script src="assets/js/enhanced-api-service.js"></script>
         <script src="assets/js/mcp-service.js"></script>
         <script src="assets/js/command-processor.js"></script>
+        <script src="assets/js/conversation-style-manager.js"></script>
+        <script src="assets/js/emotion-recognition.js"></script>
+        <script src="assets/js/guide-service.js"></script>
+        <script src="assets/js/performance-optimizer.js"></script>
+        <script src="assets/js/test-suite.js"></script>
+        <script src="assets/js/testing-ui.js"></script>
+        <script src="assets/js/responsive-manager.js"></script>
 
         <!-- 主应用初始化 -->
         <script>
@@ -1334,10 +2629,13 @@
 
           // 应用初始化
           async function initAIChat() {
+            const loaderId = window.loadingManager?.showGlobalLoading('初始化应用...', true);
+            
             try {
               console.log('正在初始化AI人格聊天应用...');
 
               // 创建核心服务实例
+              window.loadingManager?.updateProgress(loaderId, 10, '创建核心服务...');
               const storage = new AIChat.StorageService();
               const avatarManager = new AIChat.AvatarManager();
               const chatManager = new AIChat.ChatManager(storage);
@@ -1346,17 +2644,49 @@
               const apiService = new AIChat.APIService();
               const mcpService = new AIChat.MCPService();
               const commandProcessor = new AIChat.CommandProcessor(personaManager, chatManager);
-
+              const responsiveManager = new ResponsiveManager();
+              
               // 初始化服务
+              window.loadingManager?.updateProgress(loaderId, 20, '初始化存储服务...');
               await storage.init();
+              
+              // 创建设置管理器
+              window.loadingManager?.updateProgress(loaderId, 30, '初始化设置管理器...');
+              const settingsManager = new AIChat.SettingsManager(storage);
+              await settingsManager.init();
+              
+              // 创建设置界面
+              window.loadingManager?.updateProgress(loaderId, 40, '初始化设置界面...');
+              const settingsUI = new AIChat.SettingsUI(settingsManager, storage);
+              await settingsUI.init();
+              
+              // 应用紧凑模式（如果需要）
+              if (responsiveManager.shouldUseCompactMode()) {
+                responsiveManager.applyCompactMode(true);
+              }
+
+              window.loadingManager?.updateProgress(loaderId, 50, '初始化人格管理器...');
               await personaManager.init();
+              
+              window.loadingManager?.updateProgress(loaderId, 60, '初始化API服务...');
               await apiService.init(storage);
+              
+              // 创建增强的API服务包装器
+              const enhancedApiService = new AIChat.EnhancedAPIService(apiService);
+              
+              window.loadingManager?.updateProgress(loaderId, 70, '初始化MCP服务...');
               await mcpService.init();
 
               // 设置服务间的依赖关系
               apiService.setContextManager(contextManager);
 
+              // 初始化引导服务
+              window.loadingManager?.updateProgress(loaderId, 80, '初始化引导服务...');
+              const guideService = new AIChat.GuideService();
+              await guideService.init(apiService, storage);
+
               // 创建应用实例
+              window.loadingManager?.updateProgress(loaderId, 90, '创建应用实例...');
               app = {
                 storage,
                 avatarManager,
@@ -1364,23 +2694,54 @@
                 contextManager,
                 personaManager,
                 apiService,
+                enhancedApiService,
                 mcpService,
                 commandProcessor,
+                responsiveManager,
+                guideService,
+                settingsManager,
+                settingsUI,
                 ui: {
                   currentTheme: 'light'
                 }
               };
 
+              // 设置全局引用以便模态框中使用
+              window.guideService = guideService;
+              window.app = app;
+
               // 初始化UI
+              window.loadingManager?.updateProgress(loaderId, 95, '初始化用户界面...');
               await initUI();
+              
+              // 调整布局以适应内容
+              responsiveManager.adjustLayoutForContent();
 
               // 加载默认人格
+              window.loadingManager?.updateProgress(loaderId, 100, '加载默认人格...');
               await loadDefaultPersona();
 
               console.log('AI人格聊天应用初始化完成！');
+              window.loadingManager?.showSuccessNotification('应用初始化完成');
             } catch (error) {
               console.error('应用初始化失败:', error);
-              showError('应用初始化失败，请刷新页面重试');
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '应用初始化失败',
+                  window.errorHandler.errorCategories.SYSTEM,
+                  window.errorHandler.errorLevels.CRITICAL,
+                  { phase: 'app_initialization' }
+                );
+              } else {
+                showError('应用初始化失败，请刷新页面重试');
+              }
+            } finally {
+              // 隐藏加载状态
+              if (loaderId) {
+                window.loadingManager?.hideGlobalLoading(loaderId);
+              }
             }
           }
 
@@ -1395,23 +2756,79 @@
             // 设置事件监听器
             setupEventListeners();
 
+            // 设置Ollama状态监听
+            setupOllamaStatusListeners();
+
             // 检查API状态
             checkAPIStatus();
           }
 
           // 渲染人格列表
-          function renderPersonaList() {
+          async function renderPersonaList() {
             const container = document.getElementById('personaItems');
-            const personas = app.personaManager.getAllPersonas();
-            const currentPersona = app.personaManager.getCurrentPersona();
-
-            container.innerHTML = '';
-
-            personas.forEach(persona => {
-              const isActive = persona.id === currentPersona.id;
-              const personaElement = createPersonaListItem(persona, isActive);
-              container.appendChild(personaElement);
+            
+            // 显示骨架屏加载状态
+            const skeletonId = window.loadingManager?.showSkeleton(container, {
+              lines: 4,
+              height: '4rem',
+              spacing: '0.5rem',
+              lastLineWidth: '80%'
             });
+
+            try {
+              const personas = app.personaManager.getAllPersonas();
+              const currentPersona = app.personaManager.getCurrentPersona();
+
+              // 模拟短暂延迟以显示加载效果
+              await new Promise(resolve => setTimeout(resolve, 100));
+
+              // 隐藏骨架屏
+              if (skeletonId) {
+                window.loadingManager?.hideSkeleton(skeletonId);
+              }
+
+              container.innerHTML = '';
+
+              if (personas.length === 0) {
+                container.innerHTML = `
+                  <div class="text-center py-8 opacity-60">
+                    <i class="fa fa-user-plus text-2xl mb-2"></i>
+                    <p>暂无人格</p>
+                    <p class="text-xs">点击"新建人格"开始</p>
+                  </div>
+                `;
+                return;
+              }
+
+              personas.forEach(persona => {
+                const isActive = persona.id === currentPersona.id;
+                const personaElement = createPersonaListItem(persona, isActive);
+                container.appendChild(personaElement);
+              });
+            } catch (error) {
+              // 隐藏骨架屏
+              if (skeletonId) {
+                window.loadingManager?.hideSkeleton(skeletonId);
+              }
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '渲染人格列表失败',
+                  window.errorHandler.errorCategories.SYSTEM,
+                  window.errorHandler.errorLevels.MEDIUM,
+                  { operation: 'render_persona_list' }
+                );
+              }
+              
+              // 显示错误消息
+              container.innerHTML = `
+                <div class="alert alert-error">
+                  <i class="fa fa-exclamation-triangle"></i>
+                  <span>加载人格列表失败</span>
+                </div>
+              `;
+            }
           }
 
           // 创建人格列表项
@@ -1420,17 +2837,27 @@
             div.className = `card card-compact cursor-pointer transition-all duration-200 ${isActive ? 'bg-primary/10 border-primary border' : 'bg-base-100 hover:bg-base-200'
               }`;
 
+            // 创建头像容器
+            const avatarContainer = document.createElement('div');
+            avatarContainer.className = 'avatar';
+            
+            // 使用AvatarManager创建头像元素
+            const avatarElement = app.avatarManager.createAvatarElement(
+              persona.avatar, 
+              persona.name, 
+              { 
+                size: 'w-10 h-10',
+                showBorder: false,
+                clickable: false
+              }
+            );
+            
+            avatarContainer.appendChild(avatarElement);
+
             div.innerHTML = `
         <div class="card-body">
           <div class="flex items-center space-x-3">
-            <div class="avatar">
-              <div class="w-10 h-10 rounded-full ${persona.avatar ? '' : 'bg-primary/10 flex items-center justify-center text-primary font-bold'}">
-                ${persona.avatar
-                ? `<img src="${persona.avatar}" alt="${persona.name}" class="rounded-full">`
-                : persona.name.charAt(0)
-              }
-              </div>
-            </div>
+            <div class="avatar-placeholder"></div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center space-x-2">
                 <h4 class="font-medium truncate">${persona.name}</h4>
@@ -1445,50 +2872,115 @@
         </div>
       `;
 
+            // 替换占位符为实际头像
+            const placeholder = div.querySelector('.avatar-placeholder');
+            placeholder.replaceWith(avatarContainer);
+
             div.addEventListener('click', () => switchPersona(persona.id));
             return div;
           }
 
           // 切换人格
           async function switchPersona(personaId) {
+            const loaderId = window.loadingManager?.showGlobalLoading('切换人格中...');
+            
             try {
               await app.personaManager.switchPersona(personaId);
               await renderPersonaList();
               await renderCurrentChat();
               updateCurrentPersonaInfo();
+              
+              // 显示成功通知
+              const persona = app.personaManager.getCurrentPersona();
+              window.loadingManager?.showSuccessNotification(`已切换到 ${persona.name}`);
             } catch (error) {
               console.error('切换人格失败:', error);
-              showError('切换人格失败');
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '切换人格失败',
+                  window.errorHandler.errorCategories.SYSTEM,
+                  window.errorHandler.errorLevels.HIGH,
+                  { personaId, operation: 'switch_persona' }
+                );
+              } else {
+                showError('切换人格失败');
+              }
+            } finally {
+              // 隐藏加载状态
+              if (loaderId) {
+                window.loadingManager?.hideGlobalLoading(loaderId);
+              }
             }
           }
 
           // 渲染当前聊天
           async function renderCurrentChat() {
-            const currentPersona = app.personaManager.getCurrentPersona();
-            const messages = await app.chatManager.getChatHistory(currentPersona.id);
-
             const container = document.getElementById('chatMessages');
-            container.innerHTML = '';
+            
+            // 显示骨架屏加载状态
+            const skeletonId = window.loadingManager?.showSkeleton(container, {
+              lines: 3,
+              height: '3rem',
+              spacing: '1rem',
+              lastLineWidth: '70%'
+            });
 
-            // 如果没有消息，显示欢迎消息
-            if (messages.length === 0) {
-              const welcomeMessage = createChatMessage({
-                role: 'assistant',
-                content: currentPersona.beginDialogs.length > 0
-                  ? currentPersona.beginDialogs[currentPersona.beginDialogs.length - 1].content
-                  : '你好！有什么我可以帮助你的吗？',
-                timestamp: new Date()
-              }, currentPersona);
-              container.appendChild(welcomeMessage);
-            } else {
-              messages.forEach(message => {
-                const messageElement = createChatMessage(message, currentPersona);
-                container.appendChild(messageElement);
-              });
+            try {
+              const currentPersona = app.personaManager.getCurrentPersona();
+              const messages = await app.chatManager.getChatHistory(currentPersona.id);
+
+              // 隐藏骨架屏
+              if (skeletonId) {
+                window.loadingManager?.hideSkeleton(skeletonId);
+              }
+
+              container.innerHTML = '';
+
+              // 如果没有消息，显示欢迎消息
+              if (messages.length === 0) {
+                const welcomeMessage = createChatMessage({
+                  role: 'assistant',
+                  content: currentPersona.beginDialogs.length > 0
+                    ? currentPersona.beginDialogs[currentPersona.beginDialogs.length - 1].content
+                    : '你好！有什么我可以帮助你的吗？',
+                  timestamp: new Date()
+                }, currentPersona);
+                container.appendChild(welcomeMessage);
+              } else {
+                messages.forEach(message => {
+                  const messageElement = createChatMessage(message, currentPersona);
+                  container.appendChild(messageElement);
+                });
+              }
+
+              // 滚动到底部
+              container.scrollTop = container.scrollHeight;
+            } catch (error) {
+              // 隐藏骨架屏
+              if (skeletonId) {
+                window.loadingManager?.hideSkeleton(skeletonId);
+              }
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '渲染聊天失败',
+                  window.errorHandler.errorCategories.SYSTEM,
+                  window.errorHandler.errorLevels.MEDIUM,
+                  { operation: 'render_chat' }
+                );
+              }
+              
+              // 显示错误消息
+              container.innerHTML = `
+                <div class="alert alert-error">
+                  <i class="fa fa-exclamation-triangle"></i>
+                  <span>加载聊天记录失败: ${error.message}</span>
+                </div>
+              `;
             }
-
-            // 滚动到底部
-            container.scrollTop = container.scrollHeight;
           }
 
           // 创建聊天消息元素
@@ -1500,15 +2992,27 @@
             div.className = `chat ${isUser ? 'chat-end' : 'chat-start'} chat-message group`;
             div.setAttribute('data-message-id', message.id);
 
-            const avatar = isUser
-              ? '<div class="w-10 h-10 rounded-full bg-base-300 flex items-center justify-center text-base-content font-bold text-sm">你</div>'
-              : persona.avatar
-                ? `<img src="${persona.avatar}" alt="${persona.name}" class="w-10 h-10 rounded-full">`
-                : `<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">${persona.name.charAt(0)}</div>`;
+            // 创建头像元素
+            let avatarElement;
+            if (isUser) {
+              avatarElement = '<div class="w-10 h-10 rounded-full bg-base-300 flex items-center justify-center text-base-content font-bold text-sm">你</div>';
+            } else {
+              // 使用AvatarManager创建人格头像
+              const avatarDiv = app.avatarManager.createAvatarElement(
+                persona.avatar, 
+                persona.name, 
+                { 
+                  size: 'w-10 h-10',
+                  showBorder: false,
+                  clickable: false
+                }
+              );
+              avatarElement = avatarDiv.outerHTML;
+            }
 
             div.innerHTML = `
         <div class="chat-image avatar">
-          ${avatar}
+          ${avatarElement}
         </div>
         <div class="chat-bubble ${isUser ? 'chat-bubble-primary' : ''} ${isImportant ? 'ring-2 ring-warning' : ''} relative">
           ${isImportant ? '<div class="absolute -top-1 -right-1 w-3 h-3 bg-warning rounded-full"></div>' : ''}
@@ -1573,6 +3077,52 @@
             }
           }
 
+          // 设置Ollama状态监听器
+          function setupOllamaStatusListeners() {
+            // 监听Ollama连接状态变化
+            window.addEventListener('ollamaConnectionChange', (event) => {
+              const { isConnected, status } = event.detail;
+              updateOllamaStatusIndicator(isConnected, status);
+            });
+
+            // 监听Ollama状态更新
+            window.addEventListener('ollamaStatusUpdate', (event) => {
+              const { status, statusChanged } = event.detail;
+              if (statusChanged) {
+                updateOllamaStatusIndicator(status.available, status);
+              }
+            });
+          }
+
+          // 更新Ollama状态指示器
+          function updateOllamaStatusIndicator(isAvailable, status) {
+            const indicator = document.getElementById('ollamaStatusIndicator');
+            if (!indicator) return;
+
+            // 只在使用Ollama时显示状态指示器
+            if (app.apiService.currentProvider !== 'ollama') {
+              indicator.classList.add('hidden');
+              return;
+            }
+
+            if (isAvailable) {
+              // Ollama可用，隐藏指示器
+              indicator.classList.add('hidden');
+            } else {
+              // Ollama不可用，显示指示器
+              const alert = indicator.querySelector('.alert');
+              alert.className = 'alert alert-warning shadow-lg w-auto';
+              
+              const title = alert.querySelector('h4');
+              const description = alert.querySelector('p');
+              
+              title.textContent = 'Ollama服务不可用';
+              description.textContent = status?.error || '点击查看设置指南';
+              
+              indicator.classList.remove('hidden');
+            }
+          }
+
           // 设置事件监听器
           function setupEventListeners() {
             // 发送消息
@@ -1615,6 +3165,13 @@
 
             // 主题切换
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // 设置按钮
+            document.getElementById('settingsBtn').addEventListener('click', () => {
+              if (app.settingsUI) {
+                app.settingsUI.show();
+              }
+            });
 
             // 人格指令按钮
             document.getElementById('personaCommandBtn').addEventListener('click', showCommandHelp);
@@ -1675,11 +3232,11 @@
                    onclick="selectCommandSuggestion('${cmd.command}')">
                 <div class="flex items-center justify-between">
                   <div>
-                    <span class="font-mono text-sm">${cmd.command}</span>
-                    ${cmd.alias ? `<span class="text-xs opacity-60 ml-2">${cmd.alias}</span>` : ''}
+                    <span class="font-mono text-sm">" + cmd.command + "</span>
+                    " + (cmd.alias ? '<span class="text-xs opacity-60 ml-2">' + cmd.alias + '</span>' : '') + "
                   </div>
                 </div>
-                <div class="text-xs opacity-70 mt-1">${cmd.description}</div>
+                <div class="text-xs opacity-70 mt-1">" + cmd.description + "</div>
               </div>
             `).join('');
 
@@ -1735,6 +3292,9 @@
 
           // 保存人格（新版本）
           async function savePersona() {
+            const saveButton = document.getElementById('savePersonaBtn');
+            const loaderId = window.loadingManager?.showButtonLoading(saveButton, '保存中...');
+            
             try {
               const form = document.getElementById('personaForm');
               const formData = new FormData(form);
@@ -1747,9 +3307,14 @@
               };
 
               // 获取头像
-              const avatarImg = document.querySelector('#previewAvatar img');
-              if (avatarImg && avatarImg.src.startsWith('data:')) {
-                personaData.avatar = avatarImg.src;
+              const previewAvatar = document.getElementById('previewAvatar');
+              if (previewAvatar.dataset.avatarData) {
+                personaData.avatar = previewAvatar.dataset.avatarData;
+              } else {
+                const avatarImg = previewAvatar.querySelector('img');
+                if (avatarImg && avatarImg.src.startsWith('data:')) {
+                  personaData.avatar = avatarImg.src;
+                }
               }
 
               // 收集预设对话
@@ -1784,11 +3349,11 @@
                 // 更新现有人格
                 const currentPersona = app.personaManager.getCurrentPersona();
                 savedPersona = await app.personaManager.updatePersona(currentPersona.id, personaData);
-                showToast('人格更新成功', 'success');
+                window.loadingManager?.showSuccessNotification('人格更新成功');
               } else {
                 // 创建新人格
                 savedPersona = await app.personaManager.createPersona(personaData);
-                showToast('人格创建成功', 'success');
+                window.loadingManager?.showSuccessNotification('人格创建成功');
                 
                 // 切换到新创建的人格
                 await app.personaManager.switchPersona(savedPersona.id);
@@ -1808,7 +3373,23 @@
               
             } catch (error) {
               console.error('保存人格失败:', error);
-              showToast('保存失败: ' + error.message, 'error');
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '保存人格失败',
+                  window.errorHandler.errorCategories.STORAGE,
+                  window.errorHandler.errorLevels.HIGH,
+                  { operation: 'save_persona', personaName: personaData?.name }
+                );
+              } else {
+                showToast('保存失败: ' + error.message, 'error');
+              }
+            } finally {
+              // 隐藏按钮加载状态
+              if (loaderId) {
+                window.loadingManager?.hideButtonLoading(loaderId);
+              }
             }
           }
 
@@ -1823,17 +3404,16 @@
             const errorContainer = document.createElement('div');
             errorContainer.id = 'validationErrors';
             errorContainer.className = 'alert alert-error mt-4';
-            errorContainer.innerHTML = `
-              <div class="flex items-start space-x-2">
-                <i class="fa fa-exclamation-triangle flex-shrink-0 mt-1"></i>
-                <div>
-                  <h4 class="font-bold">数据验证失败</h4>
-                  <ul class="list-disc list-inside mt-2 space-y-1">
-                    ${errors.map(error => `<li class="text-sm">${error}</li>`).join('')}
-                  </ul>
-                </div>
-              </div>
-            `;
+            errorContainer.innerHTML = 
+              '<div class="flex items-start space-x-2">' +
+                '<i class="fa fa-exclamation-triangle flex-shrink-0 mt-1"></i>' +
+                '<div>' +
+                  '<h4 class="font-bold">数据验证失败</h4>' +
+                  '<ul class="list-disc list-inside mt-2 space-y-1">' +
+                    errors.map(error => '<li class="text-sm">' + error + '</li>').join('') +
+                  '</ul>' +
+                '</div>' +
+              '</div>';
 
             // 插入到表单底部
             const modalBox = document.querySelector('#personaModal .modal-box');
@@ -1868,22 +3448,32 @@
               
               // 添加默认人格标识
               if (currentPersona.isDefault) {
-                nameElement.innerHTML = `${currentPersona.name} <span class="badge badge-primary badge-xs ml-1">默认</span>`;
+                nameElement.innerHTML = currentPersona.name + ' <span class="badge badge-primary badge-xs ml-1">默认</span>';
               }
             }
 
             if (avatarElement) {
-              if (currentPersona.avatar) {
-                avatarElement.innerHTML = `<img src="${currentPersona.avatar}" alt="${currentPersona.name}头像" class="w-full h-full rounded-full object-cover">`;
+              // 使用AvatarManager更新头像显示
+              if (currentPersona.avatar && app.avatarManager.isValidBase64Image(currentPersona.avatar)) {
+                avatarElement.innerHTML = '<img src="' + currentPersona.avatar + '" alt="' + currentPersona.name + '头像" class="w-full h-full rounded-full object-cover">';
+                
+                // 添加错误处理
+                const img = avatarElement.querySelector('img');
+                if (img) {
+                  img.onerror = () => {
+                    console.warn('头像加载失败，使用默认头像');
+                    app.avatarManager.setDefaultAvatarContent(avatarElement, currentPersona.name);
+                  };
+                }
               } else {
-                avatarElement.textContent = currentPersona.name.charAt(0);
-                avatarElement.className = 'w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg';
+                // 使用AvatarManager设置默认头像
+                app.avatarManager.setDefaultAvatarContent(avatarElement, currentPersona.name);
               }
             }
 
             if (lastActiveElement) {
               const lastActive = currentPersona.updatedAt || currentPersona.createdAt || new Date();
-              lastActiveElement.textContent = `上次活跃: ${AIChat.Utils.formatTime(new Date(lastActive))}`;
+              lastActiveElement.textContent = '上次活跃: ' + AIChat.Utils.formatTime(new Date(lastActive));
             }
           }
 
@@ -1899,8 +3489,8 @@
             
             // 重置头像预览
             const previewAvatar = document.getElementById('previewAvatar');
-            previewAvatar.innerHTML = 'A';
-            previewAvatar.className = 'w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg';
+            delete previewAvatar.dataset.avatarData;
+            app.avatarManager.setDefaultAvatarContent(previewAvatar, 'A');
             
             // 重置对话容器
             resetDialogContainers();
@@ -1930,11 +3520,12 @@
             
             // 设置头像
             const previewAvatar = document.getElementById('previewAvatar');
-            if (currentPersona.avatar) {
-              previewAvatar.innerHTML = `<img src="${currentPersona.avatar}" alt="${currentPersona.name}头像" class="w-full h-full rounded-full object-cover">`;
+            if (currentPersona.avatar && app.avatarManager.isValidBase64Image(currentPersona.avatar)) {
+              previewAvatar.dataset.avatarData = currentPersona.avatar;
+              app.avatarManager.previewAvatar(currentPersona.avatar, previewAvatar, currentPersona.name);
             } else {
-              previewAvatar.textContent = currentPersona.name.charAt(0);
-              previewAvatar.className = 'w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg';
+              delete previewAvatar.dataset.avatarData;
+              app.avatarManager.setDefaultAvatarContent(previewAvatar, currentPersona.name);
             }
             
             // 填充对话数据
@@ -1953,52 +3544,50 @@
             const moodContainer = document.getElementById('moodImitationDialogsContainer');
             
             // 重置预设对话容器
-            beginContainer.innerHTML = `
-              <div class="begin-dialog-item flex items-start space-x-2">
-                <select class="select select-bordered select-sm w-20">
-                  <option value="user">用户</option>
-                  <option value="assistant">助手</option>
-                </select>
-                <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">
-                <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-              <div class="begin-dialog-item flex items-start space-x-2">
-                <select class="select select-bordered select-sm w-20">
-                  <option value="user">用户</option>
-                  <option value="assistant" selected>助手</option>
-                </select>
-                <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">
-                <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-            `;
+            beginContainer.innerHTML = 
+              '<div class="begin-dialog-item flex items-start space-x-2">' +
+                '<select class="select select-bordered select-sm w-20">' +
+                  '<option value="user">用户</option>' +
+                  '<option value="assistant">助手</option>' +
+                '</select>' +
+                '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">' +
+                '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                  '<i class="fa fa-times"></i>' +
+                '</button>' +
+              '</div>' +
+              '<div class="begin-dialog-item flex items-start space-x-2">' +
+                '<select class="select select-bordered select-sm w-20">' +
+                  '<option value="user">用户</option>' +
+                  '<option value="assistant" selected>助手</option>' +
+                '</select>' +
+                '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">' +
+                '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                  '<i class="fa fa-times"></i>' +
+                '</button>' +
+              '</div>';
             
             // 重置风格模仿对话容器
-            moodContainer.innerHTML = `
-              <div class="mood-dialog-item flex items-start space-x-2">
-                <select class="select select-bordered select-sm w-20">
-                  <option value="user">用户</option>
-                  <option value="assistant">助手</option>
-                </select>
-                <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">
-                <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-              <div class="mood-dialog-item flex items-start space-x-2">
-                <select class="select select-bordered select-sm w-20">
-                  <option value="user">用户</option>
-                  <option value="assistant" selected>助手</option>
-                </select>
-                <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">
-                <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-            `;
+            moodContainer.innerHTML = 
+              '<div class="mood-dialog-item flex items-start space-x-2">' +
+                '<select class="select select-bordered select-sm w-20">' +
+                  '<option value="user">用户</option>' +
+                  '<option value="assistant">助手</option>' +
+                '</select>' +
+                '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">' +
+                '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                  '<i class="fa fa-times"></i>' +
+                '</button>' +
+              '</div>' +
+              '<div class="mood-dialog-item flex items-start space-x-2">' +
+                '<select class="select select-bordered select-sm w-20">' +
+                  '<option value="user">用户</option>' +
+                  '<option value="assistant" selected>助手</option>' +
+                '</select>' +
+                '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">' +
+                '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                  '<i class="fa fa-times"></i>' +
+                '</button>' +
+              '</div>';
             
             // 重新绑定删除按钮事件
             bindDialogDeleteEvents();
@@ -2011,18 +3600,18 @@
             
             // 填充预设对话
             if (persona.beginDialogs && persona.beginDialogs.length > 0) {
-              beginContainer.innerHTML = persona.beginDialogs.map(dialog => `
-                <div class="begin-dialog-item flex items-start space-x-2">
-                  <select class="select select-bordered select-sm w-20">
-                    <option value="user" ${dialog.role === 'user' ? 'selected' : ''}>用户</option>
-                    <option value="assistant" ${dialog.role === 'assistant' ? 'selected' : ''}>助手</option>
-                  </select>
-                  <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容" value="${dialog.content}">
-                  <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </div>
-              `).join('');
+              beginContainer.innerHTML = persona.beginDialogs.map(dialog => 
+                '<div class="begin-dialog-item flex items-start space-x-2">' +
+                  '<select class="select select-bordered select-sm w-20">' +
+                    '<option value="user"' + (dialog.role === 'user' ? ' selected' : '') + '>用户</option>' +
+                    '<option value="assistant"' + (dialog.role === 'assistant' ? ' selected' : '') + '>助手</option>' +
+                  '</select>' +
+                  '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容" value="' + dialog.content + '">' +
+                  '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                    '<i class="fa fa-times"></i>' +
+                  '</button>' +
+                '</div>'
+              ).join('');
             } else {
               resetDialogContainers();
               return;
@@ -2030,18 +3619,18 @@
             
             // 填充风格模仿对话
             if (persona.moodImitationDialogs && persona.moodImitationDialogs.length > 0) {
-              moodContainer.innerHTML = persona.moodImitationDialogs.map(dialog => `
-                <div class="mood-dialog-item flex items-start space-x-2">
-                  <select class="select select-bordered select-sm w-20">
-                    <option value="user" ${dialog.role === 'user' ? 'selected' : ''}>用户</option>
-                    <option value="assistant" ${dialog.role === 'assistant' ? 'selected' : ''}>助手</option>
-                  </select>
-                  <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容" value="${dialog.content}">
-                  <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </div>
-              `).join('');
+              moodContainer.innerHTML = persona.moodImitationDialogs.map(dialog => 
+                '<div class="mood-dialog-item flex items-start space-x-2">' +
+                  '<select class="select select-bordered select-sm w-20">' +
+                    '<option value="user"' + (dialog.role === 'user' ? ' selected' : '') + '>用户</option>' +
+                    '<option value="assistant"' + (dialog.role === 'assistant' ? ' selected' : '') + '>助手</option>' +
+                  '</select>' +
+                  '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容" value="' + dialog.content + '">' +
+                  '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                    '<i class="fa fa-times"></i>' +
+                  '</button>' +
+                '</div>'
+              ).join('');
             }
             
             // 重新绑定事件
@@ -2065,16 +3654,15 @@
             const container = document.getElementById('beginDialogsContainer');
             const newItem = document.createElement('div');
             newItem.className = 'begin-dialog-item flex items-start space-x-2';
-            newItem.innerHTML = `
-              <select class="select select-bordered select-sm w-20">
-                <option value="user">用户</option>
-                <option value="assistant">助手</option>
-              </select>
-              <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">
-              <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                <i class="fa fa-times"></i>
-              </button>
-            `;
+            newItem.innerHTML = 
+              '<select class="select select-bordered select-sm w-20">' +
+                '<option value="user">用户</option>' +
+                '<option value="assistant">助手</option>' +
+              '</select>' +
+              '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">' +
+              '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                '<i class="fa fa-times"></i>' +
+              '</button>';
             
             container.appendChild(newItem);
             
@@ -2094,16 +3682,15 @@
             const container = document.getElementById('moodImitationDialogsContainer');
             const newItem = document.createElement('div');
             newItem.className = 'mood-dialog-item flex items-start space-x-2';
-            newItem.innerHTML = `
-              <select class="select select-bordered select-sm w-20">
-                <option value="user">用户</option>
-                <option value="assistant">助手</option>
-              </select>
-              <input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">
-              <button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">
-                <i class="fa fa-times"></i>
-              </button>
-            `;
+            newItem.innerHTML = 
+              '<select class="select select-bordered select-sm w-20">' +
+                '<option value="user">用户</option>' +
+                '<option value="assistant">助手</option>' +
+              '</select>' +
+              '<input type="text" class="input input-bordered input-sm flex-1" placeholder="输入对话内容">' +
+              '<button type="button" class="delete-dialog-btn btn btn-ghost btn-sm btn-circle text-error">' +
+                '<i class="fa fa-times"></i>' +
+              '</button>';
             
             container.appendChild(newItem);
             
@@ -2159,9 +3746,12 @@
           // 发送消息
           async function sendMessage() {
             const input = document.getElementById('userMessage');
+            const sendButton = document.getElementById('sendMessageBtn');
             const message = input.value.trim();
 
             if (!message) return;
+
+            const loaderId = window.loadingManager?.showButtonLoading(sendButton, '发送中...');
 
             try {
               const currentPersona = app.personaManager.getCurrentPersona();
@@ -2187,8 +3777,10 @@
               // 获取聊天历史
               const history = await app.chatManager.getChatHistory(currentPersona.id);
 
-              // 发送API请求（传递当前用户消息用于上下文分析）
-              const response = await app.apiService.sendChatRequest(history, currentPersona, userMessage);
+              // 使用增强的API服务发送请求
+              const response = app.enhancedApiService ? 
+                await app.enhancedApiService.sendChatRequest(history, currentPersona, userMessage) :
+                await app.apiService.sendChatRequest(history, currentPersona, userMessage);
 
               // 使用ChatManager保存AI回复
               const aiMessage = await app.chatManager.sendMessage(
@@ -2212,10 +3804,35 @@
               // 重新渲染聊天
               await renderCurrentChat();
 
+              // 显示成功通知（可选）
+              if (response.provider === 'ollama') {
+                window.loadingManager?.showSuccessNotification('本地模型回复完成');
+              }
+
             } catch (error) {
               console.error('发送消息失败:', error);
               hideTypingIndicator();
-              showError('发送消息失败: ' + error.message);
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '发送消息失败',
+                  window.errorHandler.errorCategories.API,
+                  window.errorHandler.errorLevels.HIGH,
+                  { 
+                    personaId: app.personaManager.getCurrentPersona()?.id,
+                    messageLength: message.length,
+                    provider: app.apiService?.currentProvider
+                  }
+                );
+              } else {
+                showError('发送消息失败: ' + error.message);
+              }
+            } finally {
+              // 隐藏按钮加载状态
+              if (loaderId) {
+                window.loadingManager?.hideButtonLoading(loaderId);
+              }
             }
           }
 
@@ -2544,29 +4161,65 @@
 
           // 显示输入指示器
           function showTypingIndicator() {
+            // 先隐藏现有的指示器
+            hideTypingIndicator();
+            
             const container = document.getElementById('chatMessages');
+            const currentPersona = app.personaManager.getCurrentPersona();
             const indicator = document.createElement('div');
             indicator.id = 'typingIndicator';
             indicator.className = 'chat chat-start typing-indicator';
+            
+            // 使用AvatarManager创建头像
+            const avatarDiv = app.avatarManager.createAvatarElement(
+              currentPersona.avatar, 
+              currentPersona.name, 
+              { 
+                size: 'w-10 h-10',
+                showBorder: false,
+                clickable: false
+              }
+            );
+            
             indicator.innerHTML = `
-        <div class="chat-image avatar">
-          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
-            ${app.personaManager.getCurrentPersona().name.charAt(0)}
-          </div>
-        </div>
-        <div class="chat-bubble">
-          <span class="loading loading-dots loading-sm"></span>
-        </div>
-      `;
+              <div class="chat-image avatar">
+                ${avatarDiv.outerHTML}
+              </div>
+              <div class="chat-bubble">
+                <div class="flex items-center space-x-1">
+                  <span class="loading loading-dots loading-sm"></span>
+                  <span class="text-xs opacity-70">正在思考...</span>
+                </div>
+              </div>
+            `;
+            
             container.appendChild(indicator);
             container.scrollTop = container.scrollHeight;
+            
+            // 添加动画效果
+            indicator.style.opacity = '0';
+            indicator.style.transform = 'translateY(10px)';
+            
+            requestAnimationFrame(() => {
+              indicator.style.transition = 'all 0.3s ease';
+              indicator.style.opacity = '1';
+              indicator.style.transform = 'translateY(0)';
+            });
           }
 
           // 隐藏输入指示器
           function hideTypingIndicator() {
             const indicator = document.getElementById('typingIndicator');
             if (indicator) {
-              indicator.remove();
+              indicator.style.transition = 'all 0.3s ease';
+              indicator.style.opacity = '0';
+              indicator.style.transform = 'translateY(-10px)';
+              
+              setTimeout(() => {
+                if (indicator.parentElement) {
+                  indicator.remove();
+                }
+              }, 300);
             }
           }
 
@@ -2759,6 +4412,8 @@
               return;
             }
 
+            const loaderId = window.loadingManager?.showGlobalLoading('清空聊天记录...');
+
             try {
               const currentPersona = app.personaManager.getCurrentPersona();
               await app.chatManager.clearChatHistory(currentPersona.id);
@@ -2769,10 +4424,29 @@
               // 重新渲染聊天界面
               await renderCurrentChat();
               
-              showSuccess('聊天记录已清空');
+              window.loadingManager?.showSuccessNotification('聊天记录已清空');
             } catch (error) {
               console.error('清空聊天失败:', error);
-              showError('清空聊天失败: ' + error.message);
+              
+              // 使用错误处理器报告错误
+              if (window.errorHandler) {
+                window.errorHandler.reportError(
+                  error.message || '清空聊天失败',
+                  window.errorHandler.errorCategories.STORAGE,
+                  window.errorHandler.errorLevels.MEDIUM,
+                  { 
+                    operation: 'clear_chat',
+                    personaId: app.personaManager.getCurrentPersona()?.id
+                  }
+                );
+              } else {
+                showError('清空聊天失败: ' + error.message);
+              }
+            } finally {
+              // 隐藏加载状态
+              if (loaderId) {
+                window.loadingManager?.hideGlobalLoading(loaderId);
+              }
             }
           }
 
@@ -2852,8 +4526,278 @@
             }, 3000);
           }
 
+          // 检查是否需要显示欢迎引导
+          function checkWelcomeGuide() {
+            if (app && app.guideService && !app.guideService.isGuideCompleted('welcome')) {
+              setTimeout(() => {
+                app.guideService.showWelcomeGuide();
+              }, 2000);
+            }
+          }
+
+          // 检查API状态并显示相应引导
+          async function checkAPIStatus() {
+            if (!app || !app.apiService) return;
+
+            try {
+              // 如果当前使用Ollama，检查其状态
+              if (app.apiService.currentProvider === 'ollama') {
+                const status = await app.apiService.checkOllamaStatus();
+                updateOllamaStatusIndicator(status.available, status);
+                
+                // 如果Ollama不可用且用户没有完成Ollama设置引导，显示引导
+                if (!status.available && app.guideService && !app.guideService.isGuideCompleted('ollamaSetup')) {
+                  setTimeout(() => {
+                    app.guideService.showOllamaSetupGuide();
+                  }, 3000);
+                }
+              }
+            } catch (error) {
+              console.warn('API状态检查失败:', error);
+            }
+          }
+
+          // 显示数据存储信息
+          function showDataStorageInfo() {
+            if (app && app.guideService) {
+              app.guideService.showDataStorageInfo();
+            }
+          }
+
+          // 显示Ollama设置指南
+          function showOllamaGuide() {
+            if (app && app.guideService) {
+              app.guideService.showOllamaSetupGuide();
+            }
+          }
+
+          // 更新设置模态框中的Ollama状态
+          async function updateOllamaStatusInSettings() {
+            const statusText = document.getElementById('ollamaStatusText');
+            if (!statusText || !app || !app.apiService) return;
+
+            try {
+              statusText.textContent = '检测中...';
+              statusText.className = 'text-warning';
+
+              const status = await app.apiService.checkOllamaStatus();
+              
+              if (status.available) {
+                statusText.textContent = `已连接 (${status.models?.length || 0} 个模型)`;
+                statusText.className = 'text-success';
+              } else {
+                statusText.textContent = '服务不可用';
+                statusText.className = 'text-error';
+              }
+            } catch (error) {
+              statusText.textContent = '检测失败';
+              statusText.className = 'text-error';
+            }
+          }
+
+          // 监听设置模态框打开事件
+          document.addEventListener('DOMContentLoaded', () => {
+            const settingsModal = document.getElementById('settingsModal');
+            if (settingsModal) {
+              settingsModal.addEventListener('show', updateOllamaStatusInSettings);
+            }
+          });
+
           // 启动应用
-          document.addEventListener('DOMContentLoaded', initAIChat);
+          document.addEventListener('DOMContentLoaded', async () => {
+            await initAIChat();
+            
+            // 延迟检查欢迎引导
+            setTimeout(() => {
+              checkWelcomeGuide();
+            }, 1500);
+          });
+
+          // 错误管理功能
+          function initErrorManagement() {
+            if (!window.errorHandler) return;
+
+            // 监听错误事件，更新错误面板
+            const originalReportError = window.errorHandler.reportError;
+            window.errorHandler.reportError = function(...args) {
+              const result = originalReportError.apply(this, args);
+              updateErrorPanel();
+              return result;
+            };
+
+            // 初始化错误面板
+            updateErrorPanel();
+          }
+
+          function updateErrorPanel() {
+            if (!window.errorHandler) return;
+
+            const panel = document.getElementById('errorManagementPanel');
+            const errorCount = document.getElementById('errorCount');
+            const recentErrorsList = document.getElementById('recentErrorsList');
+            
+            const stats = window.errorHandler.getErrorStats();
+            const recentErrors = window.errorHandler.getErrorLog(5);
+
+            // 更新错误计数
+            if (errorCount) {
+              errorCount.textContent = stats.total;
+              errorCount.style.display = stats.total > 0 ? 'block' : 'none';
+            }
+
+            // 显示/隐藏错误面板
+            if (panel) {
+              panel.style.display = stats.total > 0 ? 'block' : 'none';
+            }
+
+            // 更新最近错误列表
+            if (recentErrorsList) {
+              recentErrorsList.innerHTML = '';
+              
+              if (recentErrors.length === 0) {
+                recentErrorsList.innerHTML = '<li><a class="text-center opacity-60">暂无错误</a></li>';
+              } else {
+                recentErrors.forEach(error => {
+                  const li = document.createElement('li');
+                  li.innerHTML = 
+                    '<a onclick="window.errorHandler?.showErrorDetails(\'' + error.id + '\')" class="text-xs">' +
+                      '<div class="flex items-center space-x-2">' +
+                        '<i class="fa ' + getErrorIcon(error.category) + ' text-' + getErrorColor(error.level) + '"></i>' +
+                        '<div class="flex-1 min-w-0">' +
+                          '<div class="truncate font-medium">' + error.message + '</div>' +
+                          '<div class="text-xs opacity-60">' + new Date(error.timestamp).toLocaleTimeString() + '</div>' +
+                        '</div>' +
+                      '</div>' +
+                    '</a>';
+                  recentErrorsList.appendChild(li);
+                });
+              }
+            }
+          }
+
+          function getErrorIcon(category) {
+            const iconMap = {
+              network: 'fa-wifi',
+              api: 'fa-server',
+              storage: 'fa-database',
+              validation: 'fa-exclamation-triangle',
+              system: 'fa-bug',
+              user: 'fa-user'
+            };
+            return iconMap[category] || 'fa-exclamation-circle';
+          }
+
+          function getErrorColor(level) {
+            const colorMap = {
+              low: 'info',
+              medium: 'warning',
+              high: 'error',
+              critical: 'error'
+            };
+            return colorMap[level] || 'warning';
+          }
+
+          function showErrorManagementModal() {
+            const modal = document.getElementById('errorManagementModal');
+            if (modal) {
+              updateErrorManagementModal();
+              modal.showModal();
+            }
+          }
+
+          function updateErrorManagementModal() {
+            if (!window.errorHandler) return;
+
+            const stats = window.errorHandler.getErrorStats();
+            const errors = window.errorHandler.getErrorLog();
+
+            // 更新统计信息
+            document.getElementById('totalErrorCount').textContent = stats.total;
+            document.getElementById('highErrorCount').textContent = stats.byLevel.high || 0;
+            
+            // 计算最近24小时的错误
+            const now = Date.now();
+            const recent24h = errors.filter(error => 
+              now - new Date(error.timestamp).getTime() < 24 * 60 * 60 * 1000
+            ).length;
+            document.getElementById('recentErrorCount').textContent = recent24h;
+
+            // 更新错误列表
+            updateErrorDetailsList(errors);
+
+            // 设置标签页事件
+            setupErrorTabs();
+          }
+
+          function updateErrorDetailsList(errors, filter = 'all') {
+            const container = document.getElementById('errorDetailsList');
+            if (!container) return;
+
+            let filteredErrors = errors;
+            if (filter !== 'all') {
+              filteredErrors = errors.filter(error => error.level === filter);
+            }
+
+            container.innerHTML = '';
+
+            if (filteredErrors.length === 0) {
+              container.innerHTML = 
+                '<div class="text-center py-8 opacity-60">' +
+                  '<i class="fa fa-check-circle text-2xl mb-2"></i>' +
+                  '<p>暂无' + (filter === 'all' ? '' : filter) + '错误</p>' +
+                '</div>';
+              return;
+            }
+
+            filteredErrors.forEach(error => {
+              const div = document.createElement('div');
+              div.className = 'card card-compact bg-base-200 cursor-pointer hover:bg-base-300 transition-colors';
+              div.innerHTML = 
+                '<div class="card-body">' +
+                  '<div class="flex items-start space-x-3">' +
+                    '<i class="fa ' + getErrorIcon(error.category) + ' text-' + getErrorColor(error.level) + ' mt-1"></i>' +
+                    '<div class="flex-1 min-w-0">' +
+                      '<div class="flex items-center space-x-2 mb-1">' +
+                        '<span class="badge badge-' + getErrorColor(error.level) + ' badge-xs">' + error.level + '</span>' +
+                        '<span class="badge badge-outline badge-xs">' + error.category + '</span>' +
+                        '<span class="text-xs opacity-60">' + new Date(error.timestamp).toLocaleString() + '</span>' +
+                      '</div>' +
+                      '<p class="font-medium truncate">' + error.message + '</p>' +
+                      '<p class="text-xs opacity-60 truncate">' + error.type + ' • ' + error.url + '</p>' +
+                    '</div>' +
+                    '<button class="btn btn-ghost btn-xs" onclick="window.errorHandler?.showErrorDetails(\'' + error.id + '\')">' +
+                      '<i class="fa fa-info-circle"></i>' +
+                    '</button>' +
+                  '</div>' +
+                '</div>';
+              container.appendChild(div);
+            });
+          }
+
+          function setupErrorTabs() {
+            const tabs = document.querySelectorAll('#errorManagementModal .tab');
+            tabs.forEach(tab => {
+              tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 更新活动标签
+                tabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                
+                // 更新错误列表
+                const filter = tab.dataset.tab;
+                const errors = window.errorHandler.getErrorLog();
+                updateErrorDetailsList(errors, filter);
+              });
+            });
+          }
+
+          // 在应用初始化后启动错误管理
+          document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+              initErrorManagement();
+            }, 1000);
+          });
         </script>
 </body>
 
